@@ -1,14 +1,12 @@
 {
   "format": "talking-head",
-  "style": "mindang",
-  "source": "https://www.instagram.com/reel/De4D7stBc8T/",
-  "input": { "orientation": "portrait", "minSeconds": 15, "maxSeconds": 60, "speakers": 1, "needsAudio": true, "background": "plain wall preferred (speaker is cut out)" },
-  "cuts": { "mode": "hard", "secondsPerShot": 3.8, "maxBoardHold": 6, "speed": 1.08 },
-  "framing": { "layoutKeys": [[0, 1920]], "cutout": true, "faceShare": [0.24, 0.26], "headTopY": 1090, "punchIn": false, "drift": 0, "screenZoom": [1, 1.6] },
-  "stage": { "top": 230, "bottom": 900, "header": "Noto Serif Display, ink, one italic accent word", "cards": "white r24 soft shadow, real logos, state changes on words", "sticker": "serif italic accent in thin accent box, rot -0.06 to -0.1 rad, max 1 per board" },
-  "captions": { "font": "Montserrat", "weight": 700, "size": 62, "words": [2, 4], "lines": 1, "yPaper": 1010, "yVideo": 1480, "emphPerLine": 1, "reveal": "per-word blur in" },
-  "broll": { "kind": "own footage only", "seconds": [4, 6], "clockChip": true, "paperTag": true, "fallback": "clock board" },
-  "result": { "bg": "#191813", "title": "✓ Kết quả serif italic accent" },
-  "sound": { "voiceLufs": -14, "musicUnderVoiceDb": 26, "mixMusic": -40, "sfx": "none" },
-  "checklist": "PROFILE.md section 8"
+  "style": "chia-se-meo",
+  "source": "https://www.instagram.com/p/Dd_NUpGzqxk/",
+  "input": { "orientation": "portrait", "minSeconds": 15, "maxSeconds": 120, "speakers": 1, "needsAudio": true, "background": "any (full camera, no cut-out)" },
+  "cuts": { "mode": "hard", "secondsPerShot": 2.8, "speed": 1.05 },
+  "framing": { "layoutKeys": [[0, 0]], "cutout": false, "faceShare": [0.20, 0.32], "eyesY": 0.42, "headRoomForTitles": 0.30, "punchInsPer90s": 2, "drift": 0 },
+  "text": { "from": "spoken words (not the script unless it matches 100 %)", "liveCaptions": false, "titleFont": "Sigmar small caps, ink + mint outline", "subFont": "Be Vietnam Pro Bold", "reveal": "snap on the spoken word" },
+  "visuals": { "objects": "real context-exact photos cut out as white-border stickers", "doodles": "decoration only (stars, ticks, strikes, end frame)", "motion": "one take-specific action per segment" },
+  "sound": { "voiceLufs": -14, "music": "lofi ~15 dB under the voice", "sfx": "ding per step, pop/thud/boom on payoffs only" },
+  "checklist": "PROFILE.md section 4"
 }

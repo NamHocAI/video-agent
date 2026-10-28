@@ -34,7 +34,10 @@ function redraw(style) {
   drawing?.kill();
   const sk = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1')), plan = path.join(dir, 'plan.json');
   drawing = spawn(process.execPath, [path.join(sk, 'preview.mjs'), plan, '--only', 'fx,cover', '--style', style], { cwd: path.resolve(VA, '..'), stdio: 'ignore' });
-  drawing.on('exit', code => { drawing = null; if (!code) spawn(process.execPath, [path.join(sk, 'qc.mjs'), dir], { stdio: 'ignore' }).on('exit', () => spawn(process.execPath, [path.join(sk, 'build-wizard.mjs'), plan], { stdio: 'ignore' })); });
+  // ảnh tĩnh lên trang trước, rồi GIF của biến thể mới (gif.mjs) dựng sau và trang build lại lần nữa
+  const build = () => spawn(process.execPath, [path.join(sk, 'build-wizard.mjs'), plan], { stdio: 'ignore' });
+  drawing.on('exit', code => { drawing = null; if (!code) spawn(process.execPath, [path.join(sk, 'qc.mjs'), dir], { stdio: 'ignore' }).on('exit', () => { build();
+    spawn(process.execPath, [path.join(sk, 'gif.mjs'), plan], { cwd: VA, stdio: 'ignore' }).on('exit', build); }); });
   console.log('vẽ lại ảnh xem trước theo style', style);
 }
 const save = st => { fs.writeFileSync(SF + '.tmp', JSON.stringify(st, null, 2)); fs.renameSync(SF + '.tmp', SF); };

@@ -210,7 +210,7 @@ function capsBox(d, st, segId) {
 }
 function vFx(d, st) {
   const i = segIdx(d), s = d.segments[i], ss = st.segments[s.id], sel = s.cards.find(c => c.id === ss.selected), v = ss.versions.at(-1);
-  const big = sel?.preview?.ok ? sel.preview.img : s.still;
+  const big = sel?.preview?.ok ? (sel.preview.gif || sel.preview.img) : s.still;
   return `<div class="head"><span class="time">Đoạn ${i + 1} · ${clock(s.from)}–${clock(s.to)}</span><span class="quote">“${esc(s.text)}”</span></div>
   ${fixBox(d, s.id)}
   ${s.flag.length ? `<div class="flagbox" style="margin-bottom:14px"><b>⚑ Thiếu tư liệu</b> cho hiệu ứng đang chọn. Gỡ cờ: đổi tư liệu (ô nhập trong thẻ) hoặc chọn hiệu ứng khác.</div>` : ''}
@@ -229,7 +229,7 @@ function vFx(d, st) {
       const on = ss.selected === c.id, miss = (c.mediaCheck || []).filter(m => !m.ok);
       return `<div class="card ${on ? 'sel' : ''} ${ss.locked ? 'locked' : ''} ${ss.locked && !on ? 'dim' : ''}" ${ss.locked ? '' : `onclick="act({type:'select',seg:'${s.id}',card:'${c.id}'})"`}>
         <span class="num">${k + 1} · ${LET[k]}</span><span class="tag">Đã chọn</span>
-        <img class="pv" src="${c.preview?.ok ? c.preview.img : s.still}?v=${esc(d.builtAt)}" alt="${esc(c.name)}">
+        <img class="pv" src="${c.preview?.ok ? (c.preview.gif || c.preview.img) : s.still}?v=${esc(d.builtAt)}" alt="${esc(c.name)}">
         <h3>${esc(c.name)} <span class="src">(${esc(c.source)})</span></h3><p>${esc(c.desc)}</p>
         <div><span class="pill">CapCut: ${esc(c.capcut)}</span></div>
         ${qcLine(d, c.id)}

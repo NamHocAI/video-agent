@@ -45,6 +45,21 @@ Xem lại ảnh xem trước bằng mắt trước khi đưa cho người dùng.
 - **Lưới an toàn (người dùng 28/10):** bấm Chốt (hoặc `commit.mjs`) → server chạy `scripts/auto-final.mjs <storyboard>` tách rời: dựng `<storyboard>/thanh-pham.mp4` có tiếng (trạng thái `thanh-pham.json`, log `thanh-pham.log`), để hết token giữa chừng vẫn có sản phẩm.
 - **Còn token thì vẫn làm ĐỦ các bước như cũ**, bản tự dựng không thay thế: sửa ghi chú bút vẽ → render từng đoạn + `compare.py` (≤ 8 px, màu ≤ 12/255) → `seg-gain.mjs` (-14 ±1 LUFS, ≤ -1 dBTP) → so với video mẫu (bước 5 của /steal nếu là video thử style) → xem 1 khung full-size của bản cuối → mới giao. Bản tự dựng chỉ giao khi phiên trước bị dừng; khi đó nói rõ "bản tự dựng, chưa qua soát".
 
+## Quy tắc người dùng đã nhắc (28/10, áp mọi video)
+- **Mỗi lần người dùng chê / nhắc lỗi: sửa luôn vào skill** (SKILL.md này, learnings của /steal, STYLE.md của style), không chỉ sửa video đang làm. Backup trước.
+- **Màu + font = 3 biến thể của CÙNG style** (`styles/<style>/bien-the/<v>/style.json`, mỗi biến thể có `stageSrc` = lớp chữ capture riêng; `cardspec.applyStyle` tự đổi lớp chữ). Không đưa style khác vào lựa chọn.
+- **Chữ trên màn hình theo lời nói thật**; kịch bản chỉ để hiểu ý, trừ khi take khớp kịch bản 100 %. Ưu tiên cho từ nhấn hiện đúng lúc nói tới thay vì hiện trước lời (hấp dẫn hơn: "số lạ?" rồi "bình tĩnh" khi nói "bình tĩnh"); tùy đoạn, không bắt buộc. Không đưa lên màn hình câu người nói không nói ở đoạn đó. Lời chỉ hướng ("dưới đây", "bên này", "ở trên") thì chữ/hình đặt và chỉ đúng hướng đó (vd mũi tên chỉ xuống + chữ ở dưới).
+- **Chuyển động sáng tạo theo take**, không preset mặc định: mỗi đoạn có 1 hành động gắn đúng câu nói (điện thoại rung khi "cuộc gọi", dấu đóng khi "lừa đảo"...). Thẻ "motion" chỉ là nền (cắt, phóng), phần chính nằm trong lớp chữ. Âm thanh, ảnh, chuyển động: có lý do + giữ người xem, không chèn cho có.
+- **Tự soát khung trước khi đưa duyệt** (chụp 1 khung/đoạn ghép lên footage thật, xem bằng mắt), sửa hết rồi mới mở cho người dùng:
+  - chữ trên sticker / con dấu / viên số: 1 dòng (`white-space: nowrap`), nằm trọn trong khung 1080, không tràn mép
+  - không che mặt: đặt ở khoảng trống hai bên đầu hoặc trên đầu, theo vị trí mặt thật của take
+  - ảnh vật thể phải nhận ra ngay ở cỡ nhỏ; ảnh mờ nghĩa (tờ giấy trơn) thì thêm dấu hiệu theo lời nói (nét bút viết lên sổ...)
+  - khung doodle / trang trí không đè lên chữ: chữ nào bị đè thì ẩn đi hoặc dời chỗ
+  - Ngoại lệ chỉ khi người dùng yêu cầu rõ.
+- **Nhìn phát biết style**: hiệu ứng mới dùng đúng font, bảng màu, cách hiện (vd hiện cứng) và kiểu sticker của style; không thêm màu, kiểu chuyển cảnh hay kiểu chữ ngoài style.
+- **Đồ vật được nhắc mà take không có**: ảnh thật đúng ngữ cảnh (hộ chiếu Việt Nam, đúng trường được nhắc), tách nền, làm sticker viền trắng. Nguồn nào cũng được nhưng phải đẹp, hợp style + cảnh quay; ghi `NGUON.txt`; ghép thử 1 khung trước khi gắn.
+- **Ảnh xem trước dạng GIF** chạy trên footage: `node <scripts>/gif.mjs <storyboard>/plan.json` sau `preview.mjs` (server tự chạy khi đổi biến thể).
+
 ## Quy tắc sửa
 Người dùng sửa theo timestamp hoặc bút vẽ: chỉ sửa storyboard (plan.json → preview.mjs → build-wizard.mjs) rồi trình lại. **KHÔNG xuất.** Chỉ xuất khi người dùng bấm Chốt (hoặc gửi mã) sau khi đã xem storyboard mới. Sửa sau khi chốt → trang báo "Có thay đổi sau lần chốt", phải chốt lại.
 
