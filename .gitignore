@@ -35,3 +35,12 @@ video-agent/**/output/
 *.otf
 *.woff
 *.woff2
+# User-specific and non-source working files
+.claude/settings.json
+video-agent/log.md
+video-agent/scripts/
+video-agent/swipe.md
+video-agent/voice.md
+video-agent/storyboards/*/
+!video-agent/storyboards/templates/
+!video-agent/storyboards/templates/**
