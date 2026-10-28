@@ -6,8 +6,7 @@ Bộ công cụ và cấu hình cho quy trình dựng video ngắn, với storyb
 
 - `.claude/skills/storyboard-gate/` — skill, wizard và script cho storyboard, preview, QC và render.
 - `video-agent/formats/` — bộ định tuyến và hồ sơ format.
-- `video-agent/styles/` — hướng dẫn và cấu hình style.
-- `video-agent/presets/` — preset mặc định theo format và style.
+- Style và preset do người dùng tạo được lưu local trong `video-agent/styles/` và `video-agent/presets/`; chúng không thuộc mã nguồn chia sẻ trên GitHub.
 - `video-agent/storyboards/templates/` — template dùng lại cho các take tương tự.
 
 ## Quy trình
@@ -21,7 +20,7 @@ Các lệnh đầy đủ và quy tắc làm việc nằm trong `CLAUDE.md` và `
 
 ## Môi trường local
 
-Repo chỉ chứa mã nguồn, tài liệu và cấu hình. `.gitignore` loại file `.env`, video nguồn, media, storyboard đang làm và các bản render. Những file local này cần được đặt riêng trên máy dựng. Yêu cầu công cụ và đường dẫn engine được ghi trong storyboard skill.
+Repo chứa mã nguồn và tài liệu dùng chung. `.gitignore` loại file `.env`, video nguồn, media, storyboard đang làm, bản render, cùng style/preset do người dùng tạo. Các dữ liệu local này cần được giữ trên máy dựng. Yêu cầu công cụ và đường dẫn engine được ghi trong storyboard skill.
 
 ## Git
 
