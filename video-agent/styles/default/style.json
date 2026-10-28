@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "name": "Default",
+  "creator": {
+    "name": "Nam Học AI",
+    "handle": "@namhocai",
+    "lang": "vi",
+    "niche": "Kỹ năng AI (edit video, làm nội dung, làm việc hiệu quả) cho người Việt mới bắt đầu, chỉ từng bước bằng tiếng Việt",
+    "cta": { "sub": "Thêm video về AI", "button": "Theo dõi", "done": "Đã theo dõi" }
+  },
+  "colors": { "accent": "#EF5D0C" },
+  "font": { "family": "Archivo" },
+  "display": { "font": "Archivo", "weight": 800, "text": "Archivo", "title": "ink2", "flat": true },
+  "captions": { "style": "band", "font": "JetBrains Mono", "weight": 800, "size": 60, "maxWords": 3, "upper": true, "bg": "#111111", "color": "#FFFFFF", "radius": 0.2, "shadow": true, "tracking": -0.02, "straddle": true },
+  "layout": { "frame": { "bleed": true, "r": 0 }, "seam": 1160 },
+  "pace": { "speed": 1.15 },
+  "notes": [
+    "Comment word: one keyword per video, tied to that video's guide (e.g. a video about editing -> EDIT). Ask for it if the brief doesn't name it.",
+    "Never use Archivo Black: it has no Vietnamese diacritics. Archivo 800 for heavy text.",
+    "Voiceover over screen recordings / b-roll, no face on camera.",
+    "No emoji anywhere on screen or in captions."
+  ]
+}

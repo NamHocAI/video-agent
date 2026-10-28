@@ -1,0 +1,176 @@
+{
+  "take": "takes/lsq-dsq.mp4",
+  "key": "7f81f4fa3115",
+  "updatedFrom": "lsq-dsq",
+  "updatedAt": "2026-10-28T04:02:10.945Z",
+  "segments": [
+    {
+      "from": 0,
+      "to": 12.3,
+      "text": "Những lưu ý quan trọng khi nhận cuộc gọi từ lãnh sự quán và đại sứ quán. Nhiều bạn hoang mang khi nhận được cuộc gọi từ lãnh sự quán và đại sứ quán. Dưới đây là những lưu ý quan trọng để bạn cần nhớ nha.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "A1",
+        "name": "Tiêu đề NHẬN CUỘC GỌI TỪ LSQ/ĐSQ",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "\"Nhận cuộc gọi\" có từ khung đầu, \"từ LSQ/ĐSQ\" viền vàng khi nói \"lãnh sự quán\", sổ hộ chiếu vẽ tay, chữ nghiêng \"hoang mang?\", \"đừng mắc SAI LẦM\" khi nói \"lưu ý quan trọng\".",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/A1.jpg",
+          "full": "fx/full/A1.jpg",
+          "at": 6.15,
+          "short": 4.6,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 12.3,
+      "to": 33,
+      "text": "Đầu tiên là bạn có thể xác nhận lại thông tin như tên nè, chức vụ và mục đích của cuộc gọi. Đặc biệt là nếu là cuộc gọi từ lãnh sự quán và đại sứ quán thường bắt đầu từ đầu số như 02, 03 và 07. Nếu như số lạ gọi thì bạn hãy bình tĩnh và xác nhận lại thông qua kênh chính thức của lãnh sự quán và đại sứ quán nha.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "B1",
+        "name": "Bước 1: Xác minh người gọi",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "\"Bước 1:\" + tiêu đề, chữ \"tên / chức vụ / mục đích\" bay quanh đầu đúng lúc nói, tam giác cảnh báo + \"đầu số chính thức\", 3 viên vàng 02 · 03 · 07 bật ra theo lời, rồi \"số lạ? bình tĩnh / xác nhận qua kênh chính thức\".",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/B1.jpg",
+          "full": "fx/full/B1.jpg",
+          "at": 22.65,
+          "short": 18.8,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 33,
+      "to": 45.8,
+      "text": "Đặc biệt là trước khi trả lời những câu hỏi liên quan về hồ sơ thì bạn hãy chuẩn bị sẵn cho mình đó là hộ chiếu nè, và một quyển sổ nhỏ để ghi chép lại.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "C1",
+        "name": "Bước 2: Chuẩn bị tài liệu",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "Danh sách theo kịch bản: 1. Hộ chiếu, 2. Giấy tờ visa, 3. Thư mời, 4. Sổ ghi chú, mỗi dòng hiện lần lượt; sao vàng vẽ tay lấp lánh quanh người.",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/C1.jpg",
+          "full": "fx/full/C1.jpg",
+          "at": 39.4,
+          "short": 29.8,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 45.8,
+      "to": 53.5,
+      "text": "Ví dụ như, ờ... Lịch hẹn phỏng vấn với lãnh sự quán và đại sứ quán hay những câu hỏi thông tin liên quan về hồ sơ xin visa.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "D1",
+        "name": "Bước 3: Câu hỏi thường gặp",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "\"| hay được hỏi |\" rồi 1. Lịch hẹn phỏng vấn, 2. Thông tin cá nhân, 3. Hồ sơ visa đúng lúc nói; chữ nghiêng \"ghi lại hết nha!\".",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/D1.jpg",
+          "full": "fx/full/D1.jpg",
+          "at": 49.65,
+          "short": 38.3333,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 53.5,
+      "to": 63,
+      "text": "Và quan trọng hơn hết là bạn cần trả lời đúng với những điều đã khai trong hồ sơ xin visa nhé. Vì họ có thể kiểm tra lại ngay lập tức.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "E1",
+        "name": "Bước 4: Lưu ý khi trả lời",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "\"Rõ ràng · Ngắn gọn · Trung thực\" (theo kịch bản) hiện từng từ, chữ \"nói quá / thêm chi tiết sai\" ở ngực bị vòng tròn đỏ + dấu X gạch, \"họ kiểm tra lại ngay!\".",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/E1.jpg",
+          "full": "fx/full/E1.jpg",
+          "at": 58.25,
+          "short": 44.9667,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 63,
+      "to": 83.1,
+      "text": "Đặc biệt quan trọng lưu ý đó là dạo gần đây thì có nhiều cuộc gọi lừa đảo liên quan về họ có thể giả danh đó là lãnh sự quán và đại sứ quán. Tuy nhiên, bạn cần lưu ý là nếu là đúng, là lãnh sự quán và đại sứ quán thì sẽ không yêu cầu chuyển khoản hay cung cấp mã OTP nào hết.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "F1",
+        "name": "Cảnh báo: KHÔNG BAO GIỜ",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "Tam giác cảnh báo + \"Cuộc gọi lừa đảo / giả danh LSQ/ĐSQ\", rồi \"KHÔNG BAO GIỜ\" viền vàng + punch-in 1.1 + tiếng boom, \"yêu cầu chuyển khoản / hay mã OTP ngân hàng\", chữ \"chuyển khoản · OTP\" bị gạch đỏ.",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/F1.jpg",
+          "full": "fx/full/F1.jpg",
+          "at": 73.05,
+          "short": 55.5667,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    },
+    {
+      "from": 83.1,
+      "to": 96.3,
+      "text": "Cho nên là bạn cần phải đặc biệt bình tĩnh và lưu ý khi nhận được những cuộc gọi yêu cầu như thế nhé và cần phải kiểm tra lại thông tin. Chúc bạn sớm nhận được visa Hàn Quốc nhé.",
+      "from_slug": "lsq-dsq",
+      "version": 1,
+      "card": {
+        "id": "G1",
+        "name": "Bình tĩnh · Trung thực · Chuẩn bị kỹ",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html (style chia-se-meo)",
+        "desc": "3 dòng tiêu đề theo lời, \"= THÀNH CÔNG\", rồi khung doodle vẽ tay (mặt trời, cầu vồng, mây, hoa, tim) + \"chúc bạn sớm có visa Hàn Quốc!\" khi nói \"Chúc\".",
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/G1.jpg",
+          "full": "fx/full/G1.jpg",
+          "at": 89.69999999999999,
+          "short": 70.1667,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    }
+  ]
+}

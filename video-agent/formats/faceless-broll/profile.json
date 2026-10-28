@@ -1,0 +1,13 @@
+{
+  "format": "faceless-broll",
+  "status": "tối thiểu, chưa có take mẫu",
+  "style": "default",
+  "learnedFrom": "styles/default/style.json notes ('Voiceover over screen recordings / b-roll, no face on camera'); chưa có project faceless-broll nào trong edits/",
+  "scoreHighWhen": { "faceShare": "< 0.1", "screenShare": "< 0.3", "animShare": "< 0.3", "cutsPerMin": "> 6", "voice": "giống lời nói" },
+  "input": { "needsVoice": true, "footage": "cảnh quay thật của chính bạn, không stock ngẫu nhiên, không AI video" },
+  "framing": null,
+  "captions": null,
+  "cuts": null,
+  "sound": null,
+  "unknown": ["mọi số đo: chưa có take faceless-broll thật để đo"]
+}

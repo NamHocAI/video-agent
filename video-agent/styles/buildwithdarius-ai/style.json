@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "buildwithdarius-ai",
+  "creator": {
+    "name": "Nam Học AI",
+    "handle": "@namhocai",
+    "lang": "vi",
+    "niche": "Kỹ năng AI (edit video, làm nội dung, làm việc hiệu quả) cho người Việt mới bắt đầu, chỉ từng bước bằng tiếng Việt",
+    "cta": { "sub": "Thêm video về AI", "button": "Theo dõi", "done": "Đã theo dõi" }
+  },
+  "colors": { "paper": "#F1ECE6", "ink": "#161616", "accent": "#EF5D0C", "sheet": "#FFFFFF" },
+  "font": { "family": "Inter" },
+  "display": { "font": "Inter", "weight": 700, "text": "Inter", "title": "ink", "flat": true },
+  "captions": { "style": "rise", "block": false, "font": "Inter", "weight": 700, "size": 46, "maxWords": 3, "upper": false, "paperY": 1460 },
+  "paper": { "bg": "clean", "grain": 0, "tooth": 0, "depth": 0.9, "logos": "flat" },
+  "layout": { "frame": false, "seam": 1920 },
+  "zoom": { "drift": 0 },
+  "pace": { "speed": 1.0, "tighten": { "sentence": 0.42, "comma": 0.2, "word": 0.06 } },
+  "music": { "mute": true },
+  "sfx": { "mute": true },
+  "notes": [
+    "Paper only all along (layout seam 1920): no camera card. The screen recording, when used, is a white window card on the paper (actor with media), never full screen.",
+    "Frame: assets/components/steps.html (hook title, progress bar, 'Bước n' kicker, serif step title with an italic accent word), captured --alpha for the whole short and wired as an overlay from 0. Edit window.TUT from files/words.md (short times).",
+    "One step = one title + ONE main card under it (y 450 to 1350): a real UI rebuilt (term for Claude Code, a browser window, app cards with real logos). The card changes state on the words, it never sits still.",
+    "Motion: soft. Everything blurs in (.35 s) and blurs out (.25 s), no slide, no bounce, no hard cut, no zoom on the paper.",
+    "Captions: black Inter 700 about 46 px at y 1460, 2 to 3 words, each word blurs in when said; emph = the accent color on the key words (tool names, the step's verb).",
+    "Sound: voice only. No music, no sound effects (the original's silences are pure digital silence). Keep about .4 s of silence between sentences, the pace breathes.",
+    "Hook: kicker 'Hướng dẫn cho người mới' in accent caps, 2 to 3 big serif lines centered, the last one italic in the accent with a drawn underline. Then a big number ('chỉ 3 bước').",
+    "CTA: 'Comment' in big serif, the keyword in white bold on an accent rounded button, then 2 to 4 white chips with real logos of what they get.",
+    "Comment word: one keyword per video, tied to that video's guide (e.g. EDIT). No emoji on screen or in captions.",
+    "Never Instrument Serif, Poppins, DM Sans or Archivo Black: no Vietnamese diacritics. Serif = Noto Serif Display condensed (assets/fonts), sans = Inter."
+  ]
+}

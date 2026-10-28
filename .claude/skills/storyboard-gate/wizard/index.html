@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storyboard</title>
+<style>
+  :root { --bg: #121211; --panel: #1C1B19; --panel2: #24231F; --line: #34322D; --ink: #EEEBE4; --mute: #9C978C; --gold: #F2C230; --gold2: #F2C23022; --red: #FF5D50; --redbg: #FF5D5018; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, "Segoe UI", sans-serif; }
+  button { font: inherit; color: inherit; }
+  code { font-size: 12px; color: var(--mute); }
+  /* thanh bước */
+  header { position: sticky; top: 0; z-index: 5; background: #0C0C0B; border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; letter-spacing: .02em; }
+  nav.steps { display: flex; gap: 2px; flex-wrap: wrap; margin-left: auto; }
+  nav.steps button { background: none; border: 0; color: var(--mute); padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  nav.steps button.done { color: var(--ink); } nav.steps button.done::after { content: " ✓"; color: var(--gold); }
+  nav.steps button.on { background: var(--gold); color: #111; font-weight: 700; } nav.steps button.on::after { color: #111; }
+  nav.steps .sep { color: var(--line); align-self: center; }
+  /* tab đoạn */
+  .tabs { display: flex; gap: 6px; padding: 10px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; align-items: center; background: #151513; }
+  .tabs .part { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--mute); margin: 0 2px 0 8px; white-space: nowrap; }
+  .tabs button.tab { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; white-space: nowrap; font-size: 14px; }
+  .tabs button.tab.on { border-color: var(--gold); background: var(--gold); color: #111; font-weight: 700; }
+  .tabs button.tab .flag { color: var(--red); margin-right: 4px; } .tabs button.tab.on .flag { color: #A0170C; }
+  .tabs button.tab .lk { opacity: .7; font-size: 12px; margin-left: 4px; }
+  .tabs .pg { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 4px 9px; cursor: pointer; color: var(--mute); }
+  main { max-width: 1240px; margin: 0 auto; padding: 18px 16px 110px; }
+  h2 { margin: 0 0 4px; font-size: 22px; } .sub { color: var(--mute); margin: 0 0 16px; }
+  .head { margin: 0 0 14px; } .head .time { color: var(--gold); font-variant-numeric: tabular-nums; font-weight: 600; margin-right: 8px; } .head .quote { font-size: 17px; }
+  /* 2 khung */
+  .split { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 22px; align-items: start; }
+  @media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
+  .stage { position: sticky; top: 120px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
+  .stage .big { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 10px; display: block; background: #000; }
+  .stage .status { margin-top: 10px; font-weight: 600; } .stage .status span { color: var(--mute); font-weight: 400; }
+  .stage .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+  .caps { border-radius: 10px; padding: 8px 10px; font-weight: 700; font-size: 17px; display: grid; gap: 3px; margin-top: 10px; }
+  .caps div { padding: 1px 6px; border-radius: 4px; justify-self: start; }
+  /* thẻ */
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .card { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 10px; cursor: pointer; position: relative; display: flex; flex-direction: column; gap: 6px; }
+  .card:hover { border-color: #57544C; } .card.sel { border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold2); }
+  .card.locked { cursor: default; } .card.dim { opacity: .45; }
+  .card .num { position: absolute; top: 10px; left: 10px; z-index: 2; background: #000c; border: 1px solid #fff3; border-radius: 8px; padding: 1px 8px; font-weight: 700; font-size: 13px; }
+  .card .tag { position: absolute; top: 10px; right: 10px; z-index: 2; background: var(--gold); color: #111; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 8px; display: none; }
+  .card.sel .tag { display: block; }
+  .card img.pv { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 9px; display: block; background: #000; max-height: 340px; }
+  .card h3 { margin: 2px 0 0; font-size: 15.5px; } .card h3 .src { color: var(--mute); font-weight: 400; }
+  .card p { margin: 0; font-size: 13.5px; color: #CFCBC2; }
+  .pill { display: inline-block; font-size: 12px; border-radius: 999px; padding: 1px 9px; border: 1px solid var(--line); color: var(--mute); margin-right: 4px; }
+  .pill.lock { color: var(--ink); }
+  .flagbox { background: var(--redbg); color: #FFB3AC; border: 1px solid #FF5D5055; border-radius: 10px; padding: 8px 10px; font-size: 13.5px; }
+  .flagbox b { color: var(--red); }
+  .flagbox input { width: 100%; margin-top: 6px; background: #0008; border: 1px solid var(--line); color: var(--ink); border-radius: 6px; padding: 5px 7px; font: inherit; font-size: 13px; }
+  .muted { color: var(--mute); font-size: 13px; }
+  details.tech { font-size: 12.5px; color: var(--mute); } details.tech summary { cursor: pointer; list-style: none; } details.tech summary::before { content: "▸ "; } details.tech[open] summary::before { content: "▾ "; }
+  details.tech div { margin-top: 4px; word-break: break-word; }
+  button.main { background: var(--gold); color: #111; border: 0; border-radius: 10px; padding: 8px 16px; font-weight: 700; cursor: pointer; }
+  button.ghost { background: none; border: 1px solid var(--line); border-radius: 10px; padding: 7px 14px; cursor: pointer; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  table { border-collapse: collapse; width: 100%; } td, th { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; } th { color: var(--mute); font-weight: 500; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  /* mẫu màu + font */
+  .mock { position: relative; aspect-ratio: 9/16; border-radius: 9px; overflow: hidden; background: #000; max-height: 340px; }
+  .mock img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  .mock .paper { position: absolute; left: 0; right: 0; top: 0; height: 52%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; text-align: center; padding: 10px; }
+  .mock .t { font-size: 25px; line-height: 1.1; } .mock .c { font-size: 15px; padding: 2px 8px; border-radius: 4px; }
+  .dots { display: flex; gap: 6px; } .dots span { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #fff3; }
+  img.fontsheet { max-width: 100%; border-radius: 10px; margin-top: 8px; }
+  /* chuyển động */
+  .mv { position: relative; aspect-ratio: 9/16; overflow: hidden; border-radius: 9px; background: #000; max-height: 340px; }
+  .mv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mv-cut .b { animation: cut 3s steps(1) infinite; }
+  @keyframes cut { 0% { opacity: 0 } 50% { opacity: 1 } }
+  .mv-drift .a { animation: drift 3s linear infinite; } .mv-drift .b { animation: fade 3s linear infinite, drift 3s linear infinite; }
+  @keyframes drift { 0% { transform: scale(1) } 100% { transform: scale(1.024) } }
+  @keyframes fade { 0%, 45% { opacity: 0 } 54%, 95% { opacity: 1 } 100% { opacity: 0 } }
+  .mv-punch .b { opacity: 0; } .mv-punch .a { animation: punch 3s steps(1) infinite, shake 3s linear infinite; transform-origin: 50% 70%; }
+  .mv-punch::after { content: ""; position: absolute; inset: 0; animation: glitch 3s steps(1) infinite; mix-blend-mode: screen; }
+  @keyframes punch { 0% { transform: scale(1) } 33% { transform: scale(1.15) } 66% { transform: scale(1) } }
+  @keyframes shake { 0%, 72% { translate: 0 0 } 74% { translate: 4px -3px } 76% { translate: -4px 2px } 78% { translate: 3px 3px } 80%, 100% { translate: 0 0 } }
+  @keyframes glitch { 0%, 88% { background: none } 89% { background: linear-gradient(transparent 30%, #f004 30%, #f004 38%, transparent 38%, transparent 60%, #0ff4 60%, #0ff4 66%, transparent 66%) } 93% { background: none } }
+  /* âm thanh */
+  .spk { display: inline-flex; align-items: center; gap: 6px; background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+  .spk.on { border-color: var(--gold); color: var(--gold); }
+  audio { width: 100%; margin-top: 10px; }
+  /* xem & chốt */
+  .frame { position: relative; aspect-ratio: 9/16; border-radius: 10px; overflow: hidden; background: #000; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .zone { position: absolute; left: 0; right: 0; background: #FF5D5040; outline: 1px dashed var(--red); } .zone.r { left: auto; }
+  .zbtn { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .zbtn button { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; cursor: pointer; font-size: 13px; } .zbtn button.on { border-color: var(--gold); color: var(--gold); }
+  .segrow { display: grid; grid-template-columns: 70px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .segrow img { width: 70px; border-radius: 6px; }
+  .covers { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+  .covers .card { padding: 6px; } .covers img { width: 100%; border-radius: 6px; display: block; }
+  footer { position: fixed; bottom: 0; left: 0; right: 0; background: #0C0C0B; border-top: 1px solid var(--line); padding: 10px 16px; display: flex; align-items: center; gap: 12px; z-index: 6; }
+  footer .where { margin: 0 auto; font-weight: 700; }
+  footer button { padding: 8px 18px; border-radius: 10px; border: 1px solid var(--line); background: none; cursor: pointer; font-weight: 600; }
+  footer button.next { background: var(--gold); color: #111; border-color: var(--gold); }
+  #err { position: fixed; top: 64px; right: 16px; background: var(--red); color: #fff; padding: 8px 12px; border-radius: 8px; display: none; z-index: 9; }
+  .empty { border: 2px dashed var(--line); border-radius: 14px; padding: 30px 16px; text-align: center; color: var(--mute); }
+  .upg { border: 1px solid #F2C23055; background: #F2C2300D; border-radius: 12px; padding: 10px 14px; margin-top: 20px; font-size: 14px; }
+</style>
+</head>
+<body>
+<header><h1>Storyboard</h1><nav class="steps" id="steps"></nav></header>
+<div class="tabs" id="tabs" hidden></div>
+<main id="main">Đang tải…</main>
+<footer><button id="back">← Quay lại</button><span class="where" id="where"></span><button class="next" id="next">Tiếp →</button></footer>
+<div id="err"></div>
+<script>
+const STEPS = ['Bắt đầu', 'Màu + Font', 'Hiệu ứng', 'Âm thanh', 'Chuyển động', 'Xem & chốt'];
+const PER_PAGE = 8, LET = 'ABCDEFGH';
+let V = null, lastStep = -1;
+// chỉ là trạng thái nhìn của trình duyệt (đoạn đang mở, mẫu đang nghe...), không ghi vào state.json
+const ui = (() => { try { return JSON.parse(localStorage.getItem('sb-ui') || '{}'); } catch { return {}; } })();
+const keepUi = () => { try { localStorage.setItem('sb-ui', JSON.stringify(ui)); } catch {} };
+const $ = s => document.querySelector(s), esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const clock = t => { t = +t; const m = Math.floor(t / 60), s = (t - m * 60).toFixed(1).padStart(4, '0'); return `${m}:${s}`; };
+
+async function load() { V = await (await fetch('/api/view')).json(); render(); }
+async function act(a, quiet) {
+  const r = await fetch('/api/act', { method: 'POST', body: JSON.stringify(a) }), j = await r.json();
+  if (j.error) { const e = $('#err'); e.textContent = j.error; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 3000); return; }
+  V = j; if (!quiet) render();
+}
+const go = n => act({ type: 'step', step: Math.max(0, Math.min(5, n)) });
+$('#back').onclick = () => go((V.state.step || 0) - 1);
+$('#next').onclick = () => go((V.state.step || 0) + 1);
+
+function done(d, st, i) {
+  return [!!d.start, !!st.preset, d.segments.every(s => st.segments[s.id]?.locked), !!st.sound, !!st.motion, false][i];
+}
+function render() {
+  const { data: d, state: st } = V, step = st.step || 0;
+  if (!document.getElementById('ff')) document.head.insertAdjacentHTML('beforeend', `<style id="ff">${d.presets.flatMap(p => p.fonts).filter(f => f.file).map(f => `@font-face{font-family:'${f.name}';src:url('/api/font?f=${encodeURIComponent(f.file)}')}`).join('')}</style>`);
+  $('#steps').innerHTML = STEPS.map((s, i) => `${i ? '<span class="sep">|</span>' : ''}<button class="${i === step ? 'on' : ''} ${done(d, st, i) ? 'done' : ''}" onclick="go(${i})">${i ? i + ' ' : ''}${s}</button>`).join('');
+  $('#where').textContent = step ? `Bước ${step} trên 5` : 'Bắt đầu';
+  $('#back').disabled = step === 0; $('#next').disabled = step === 5;
+  $('#tabs').hidden = step !== 2; if (step === 2) $('#tabs').innerHTML = vTabs(d, st);
+  const want = d.presets.find(p => p.id === st.preset)?.style;   // ảnh xem trước phải theo style của preset đã chọn
+  const stale = want && d.previewStyle && want !== d.previewStyle;
+  document.getElementById('stale')?.remove();
+  if (stale) document.querySelector('main').insertAdjacentHTML('beforebegin', `<div id="stale" class="flagbox" style="margin:10px 16px 0">${V.drawing ? '⏳ Đang vẽ lại ảnh xem trước theo preset bạn chọn (style ' + esc(want) + '). Tải lại trang sau khoảng 1 phút.' : 'Ảnh xem trước đang theo style ' + esc(d.previewStyle) + ', chưa theo preset bạn chọn (' + esc(want) + '). Chọn lại preset để vẽ lại.'}</div>`);
+  $('#main').innerHTML = [vStart, vPreset, vFx, vSound, vMotion, vReview][step](d, st);
+  if (step !== lastStep) window.scrollTo(0, 0); lastStep = step;
+}
+
+// ---------------------------------------------------------------- Bắt đầu
+function vStart(d) {
+  const s = d.start;
+  if (!s) return `<h2>Bắt đầu</h2><div class="empty">Chưa có phân tích take. Chạy bước Bắt đầu trước.</div>`;
+  const row = (k, v) => `<tr><th>${k}</th><td>${v}</td></tr>`;
+  return `<h2>Bắt đầu</h2><p class="sub">Đo từ take thật. Format đã duyệt: <b>${esc(d.format)}</b>.</p>
+  <div class="panel"><table>${row('Khung, độ dài', `${s.orient}, ${s.dur} giây`)}${row('Có mặt người', s.face.share + ' %')}${row('Quay màn hình', s.screen.share + ' %')}
+  ${row('Hoạt hình / đồ hoạ', (s.anim?.share ?? 0) + ' %')}${row('Giọng nói', s.voice.speechLike ? 'có' : 'chưa rõ')}${row('Nhịp nói', s.pace.wordsPerSec ? s.pace.wordsPerSec + ' từ/giây' : '-')}
+  ${row('Đầu vào', s.inputs.map(i => `<div>${i.ok ? '✓' : '<b style="color:var(--red)">✗</b>'} ${esc(i.name)}</div>`).join(''))}</table></div>
+  ${s.missing.length ? `<p class="flagbox" style="margin-top:12px"><b>Thiếu ${s.missing.length}:</b> ${esc(s.missing.join(', '))}. ${esc(d.gateNote || '')}</p>` : ''}
+  <details class="tech" style="margin-top:12px"><summary>Chi tiết kỹ thuật</summary><div>take: <code>${esc(d.take)}</code> · ${s.size.join('x')} · style ${esc(d.style)}</div>${s.inputs.map(i => `<div>${esc(i.name)}: <code>${esc(i.note)}</code></div>`).join('')}</details>`;
+}
+
+// ---------------------------------------------------------------- 1 Màu + Font
+function vPreset(d, st) {
+  const bg = d.cover?.[0]?.img || d.segments[0].still;
+  return `<h2>Màu + Font</h2><p class="sub">Chọn 1 trong 3 phong cách cho cả video.${st.defaultsFrom ? ` Đã chọn sẵn theo preset từ video "${esc(st.defaultsFrom)}", chỉ đổi nếu muốn.` : ''}</p>
+  <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${d.presets.map((p, i) => {
+    const c = p.colors, sel = st.preset === p.id, capBg = c.captionBg && c.captionBg !== 'none' ? c.captionBg : 'transparent';
+    return `<div class="card ${sel ? 'sel' : ''}" onclick="act({type:'preset',id:'${p.id}'})"><span class="num">${i + 1}</span><span class="tag">Đã chọn</span>
+      <div class="mock"><img src="${bg}"><div class="paper" style="background:${c.paper}">
+        <div class="t" style="color:${c.ink};font-family:'${esc(p.display.font)}';font-weight:${p.display.weight || 700}">Từ 1 ngày còn<br><span style="color:${c.accent}">1-2 tiếng</span></div>
+        <span class="c" style="font-family:'${esc(p.captions.font)}';font-weight:${p.captions.weight || 700};color:${c.caption || c.ink};background:${capBg}">${p.captions.upper ? 'QUÁ LÀ NHANH' : 'quá là nhanh'}</span></div></div>
+      <h3>${esc(p.label)}</h3><div class="dots">${[c.paper, c.ink, c.accent].map(x => `<span style="background:${x}"></span>`).join('')}</div>
+      <p>${esc(p.note || '')}</p>
+      <div class="muted">${p.fonts.map(f => `${f.ok ? '✓' : '✗'} ${esc(f.name)}`).join(' · ')}</div>
+      <details class="tech" onclick="event.stopPropagation()"><summary>Chi tiết kỹ thuật</summary><div>style <code>${esc(p.style)}</code>${p.current ? ' (mặc định từ /studio-setup)' : ''}</div>${p.fonts.map(f => `<div>${esc(f.name)}: <code>${esc(f.file || 'không thấy file')}</code>${f.ok ? ', đủ dấu' : `, thiếu ${f.missing} chữ`}</div>`).join('')}<div>Ảnh mẫu là CSS phủ lên khung thật, gần đúng.</div></details></div>`;
+  }).join('')}</div>
+  <details class="tech" style="margin-top:16px"><summary>Bằng chứng kiểm dấu tiếng Việt (${d.fontsChecked} font, ${d.fontChars} chữ có dấu)</summary><img class="fontsheet" src="fonts.png" alt="render thử font"></details>`;
+}
+
+// ---------------------------------------------------------------- 2 Hiệu ứng
+function segIdx(d) { const i = d.segments.findIndex(s => s.id === ui.seg); return i < 0 ? 0 : i; }
+function vTabs(d, st) {
+  const cur = segIdx(d), pages = Math.ceil(d.segments.length / PER_PAGE), pg = Math.floor(cur / PER_PAGE);
+  let lastPart = null;
+  const tabs = d.segments.slice(pg * PER_PAGE, (pg + 1) * PER_PAGE).map((s, k) => {
+    const i = pg * PER_PAGE + k, ss = st.segments[s.id], ci = s.cards.findIndex(c => c.id === ss.selected);
+    const part = s.part !== lastPart ? `<span class="part">${esc(s.part)}</span>` : ''; lastPart = s.part;
+    return part + `<button class="tab ${i === cur ? 'on' : ''}" onclick="ui.seg='${s.id}';keepUi();render()">${s.flag.length ? '<span class="flag">⚑</span>' : ''}Đoạn ${i + 1} · ${LET[ci] ?? '-'}${ss.locked ? '<span class="lk">🔒</span>' : ''}${s.reuse && ss.versions?.[0]?.change?.startsWith('dùng lại') ? '<span class="lk" title="dùng lại từ template">↺</span>' : ''}</button>`;
+  }).join('');
+  const nav = (p, t) => `<button class="pg" ${p < 0 || p >= pages ? 'disabled' : ''} onclick="ui.seg='${d.segments[Math.max(0, Math.min(pages - 1, p)) * PER_PAGE]?.id}';keepUi();render()">${t}</button>`;
+  return (pages > 1 ? nav(pg - 1, '‹') : '') + tabs + (pages > 1 ? nav(pg + 1, '›') + `<span class="part">trang ${pg + 1}/${pages}</span>` : '');
+}
+// đã sửa theo ghi chú bút vẽ: ảnh trước / sau + đã sửa gì
+function fixBox(d, segId) {
+  const f = (d.fixes || []).filter(x => x.seg === segId); if (!f.length) return '';
+  return f.map(x => `<div class="panel" style="margin-bottom:14px;border-color:#F2C23077"><b style="color:var(--gold)">✓ Đã sửa theo ghi chú ${x.n}</b> <span class="muted">(${clock(x.t)} · “${esc(x.noteText)}”)</span>
+    <div style="margin:4px 0 8px">${esc(x.what)}. Duyệt lại đoạn này để chốt bản sửa.</div>
+    <div style="display:flex;gap:10px"><div><div class="muted">Trước</div><img src="${x.before}" style="width:120px;border-radius:6px"></div><div><div class="muted">Sau</div><img src="${x.after}?v=${esc(d.builtAt)}" style="width:120px;border-radius:6px;outline:2px solid var(--gold)"></div></div></div>`).join('');
+}
+// cảnh báo soát lỗi của thẻ (chữ nhỏ, chồng nhau, khung đen/mờ)
+function qcLine(d, cardId) { const q = d.qc?.cards?.find(x => x.card === cardId); return q?.issues?.length ? `<div class="flagbox" style="font-size:12.5px">⚠ ${q.issues.map(esc).join('<br>⚠ ')}</div>` : ''; }
+function capLine(c, cap) { return c.words.map(w => `<span style="${w.e ? `color:${cap.hi}` : ''}">${esc(w.t)}</span>`).join(' '); }
+function capsBox(d, st, segId) {
+  const p = d.presets.find(x => x.id === st.preset) || d.presets.find(x => x.id === 'p2') || d.presets[0], cap = d.captions?.[p.id], lines = (cap?.chunks || []).filter(x => x.seg === segId);
+  if (!lines.length) return `<div class="muted" style="margin-top:10px">Đoạn này không có phụ đề chạy chữ (chữ nằm trong hiệu ứng của cảnh).</div>`;
+  return `<div class="caps" style="background:${p.colors.paper};color:${cap.color || p.colors.ink}">${lines.map(x => `<div style="font-family:'${esc(p.captions.font)}';${cap.bg && cap.bg !== 'none' ? `background:${cap.bg};` : ''}">${capLine(x, cap)}</div>`).join('')}</div>`;
+}
+function vFx(d, st) {
+  const i = segIdx(d), s = d.segments[i], ss = st.segments[s.id], sel = s.cards.find(c => c.id === ss.selected), v = ss.versions.at(-1);
+  const big = sel?.preview?.ok ? sel.preview.img : s.still;
+  return `<div class="head"><span class="time">Đoạn ${i + 1} · ${clock(s.from)}–${clock(s.to)}</span><span class="quote">“${esc(s.text)}”</span></div>
+  ${fixBox(d, s.id)}
+  ${s.flag.length ? `<div class="flagbox" style="margin-bottom:14px"><b>⚑ Thiếu tư liệu</b> cho hiệu ứng đang chọn. Gỡ cờ: đổi tư liệu (ô nhập trong thẻ) hoặc chọn hiệu ứng khác.</div>` : ''}
+  <div class="split">
+    <div class="stage"><img class="big" src="${big}?v=${esc(d.builtAt)}" alt="xem trước">
+      <div class="status">Đoạn ${i + 1} · ${esc(sel?.name || 'chưa chọn')} <span>(${esc(sel?.source || '')})</span></div>
+      ${sel?.preview?.ok ? '' : `<div class="muted">Chưa xem trước được hiệu ứng này${sel?.media?.length ? ': thiếu tư liệu' : ''}.</div>`}
+      ${capsBox(d, st, s.id)}
+      <div class="row">${ss.locked ? `<span class="pill lock">🔒 Đã duyệt · v${v?.v}</span><button class="ghost" onclick="act({type:'edit',seg:'${s.id}'})">Sửa đoạn này</button>`
+        : `<button class="main" onclick="act({type:'approve',seg:'${s.id}'})">Duyệt đoạn ${i + 1}</button>`}
+        ${i < d.segments.length - 1 ? `<button class="ghost" onclick="ui.seg='${d.segments[i + 1].id}';keepUi();render()">Đoạn sau →</button>` : ''}</div>
+      ${v ? `<div class="muted" style="margin-top:8px">v${v.v}: ${esc(v.change)}</div>` : ''}
+      ${ss.versions.length > 1 ? `<details class="tech" style="margin-top:6px"><summary>${ss.versions.length} phiên bản</summary>${ss.versions.map(x => `<div>v${x.v}: ${esc(x.change)}</div>`).join('')}</details>` : ''}
+    </div>
+    <div><div class="cards">${s.cards.map((c, k) => {
+      const on = ss.selected === c.id, miss = (c.mediaCheck || []).filter(m => !m.ok);
+      return `<div class="card ${on ? 'sel' : ''} ${ss.locked ? 'locked' : ''} ${ss.locked && !on ? 'dim' : ''}" ${ss.locked ? '' : `onclick="act({type:'select',seg:'${s.id}',card:'${c.id}'})"`}>
+        <span class="num">${k + 1} · ${LET[k]}</span><span class="tag">Đã chọn</span>
+        <img class="pv" src="${c.preview?.ok ? c.preview.img : s.still}?v=${esc(d.builtAt)}" alt="${esc(c.name)}">
+        <h3>${esc(c.name)} <span class="src">(${esc(c.source)})</span></h3><p>${esc(c.desc)}</p>
+        <div><span class="pill">CapCut: ${esc(c.capcut)}</span></div>
+        ${qcLine(d, c.id)}
+        ${miss.length ? `<div class="flagbox"><b>⚑ Thiếu tư liệu</b>${on && !ss.locked ? `<input placeholder="đổi sang file trong inputs/…" onclick="event.stopPropagation()" onchange="act({type:'media',seg:'${s.id}',card:'${c.id}',i:${(c.mediaCheck || []).findIndex(m => !m.ok)},path:this.value})">` : ''}</div>` : ''}
+        <details class="tech" onclick="event.stopPropagation()"><summary>Chi tiết kỹ thuật</summary><div>engine: <code>${esc(c.engine)}</code></div>
+          <div>${c.preview?.ok ? `ảnh: engine vẽ lên khung ${c.preview.at ?? s.stillAt} s` : `chưa xem trước: ${esc(c.preview?.why)}`}</div>
+          ${(c.mediaCheck || []).map(m => `<div>tư liệu: <code>${esc(m.path)}</code> (${esc(m.why)})</div>`).join('')}</details></div>`;
+    }).join('')}</div>
+    ${d.upgrades?.length ? `<details class="upg"><summary>Cần nâng cấp engine (${d.upgrades.length}), chưa đưa vào thẻ</summary><ul>${d.upgrades.map(u => `<li>Đoạn ${d.segments.findIndex(x => x.id === u.seg) + 1}: <b>${esc(u.name)}</b>. ${esc(u.why)}</li>`).join('')}</ul></details>` : ''}
+    </div></div>`;
+}
+
+// ---------------------------------------------------------------- 3 Âm thanh
+function vSound(d, st) {
+  const L = d.sound.find(s => s.id === ui.listen) || d.sound.find(s => s.id === st.sound) || d.sound[0], a = d.audio?.[L.id] || {};
+  return `<h2>Âm thanh</h2><p class="sub">1 phong cách cho cả video. Bấm loa nghe thử rồi mới chọn.</p>
+  <div class="split">
+    <div class="stage"><img class="big" src="${d.cover?.[0]?.img || d.segments[0].still}">
+      <div class="status">Đang nghe: ${esc(L.name)}</div>
+      ${a.ok ? `<audio id="player" controls src="${a.mp3}?v=${esc(d.builtAt)}" ontimeupdate="heard(this,'${L.id}')"></audio>` : `<div class="flagbox" style="margin-top:10px">Chưa có mẫu nghe thử.</div>`}
+      <div class="muted" style="margin-top:6px">Mẫu là đoạn trộn thật từ giọng của take + nhạc/SFX có sẵn trên máy.</div></div>
+    <div><div class="cards">${d.sound.map((s, k) => {
+      const x = d.audio?.[s.id] || {}, sel = st.sound === s.id, ok = st.heard?.[s.id];
+      return `<div class="card ${sel ? 'sel' : ''}" style="cursor:default"><span class="num">${k + 1}</span><span class="tag">Đã chọn</span>
+        <h3 style="margin-top:28px">${esc(s.name)} <span class="src">(${esc(s.source)})</span></h3><p>${esc(s.desc)}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="spk ${L.id === s.id ? 'on' : ''}" onclick="listen('${s.id}')">🔊 Nghe thử</button>
+          <button class="main" id="pick-${s.id}" ${ok ? '' : 'disabled title="Nghe thử trước"'} onclick="act({type:'sound',id:'${s.id}'})">${ok ? 'Chọn' : 'Nghe trước'}</button></div>
+        ${x.ok ? `<details class="tech"><summary>Chi tiết kỹ thuật</summary><div>Cả video ${x.lufs} LUFS, đỉnh thật ${x.tp} dBTP</div>
+          <table>${x.segs.map((g, i) => `<tr><td>Đoạn ${i + 1}</td><td>giọng ${g.voice ?? '-'}</td><td>nhạc+SFX ${g.bed ?? '-'}</td><td>nhỏ hơn ${g.under ?? '-'} dB${g.sfx.length ? ` · SFX: ${esc(g.sfx.join(', '))}` : ''}</td></tr>`).join('')}</table>
+          <div>${esc(JSON.stringify({ music: s.music, mix: s.mix }))}</div></details>` : ''}</div>`;
+    }).join('')}</div>
+    <p class="muted" style="margin-top:12px">Giọng giữ chuẩn -14 LUFS. Nhạc tự nhỏ khi có giọng, SFX chỉ ở điểm chốt, luôn nhỏ hơn giọng ít nhất 15 dB.</p></div></div>`;
+}
+function listen(id) { ui.listen = id; keepUi(); render(); setTimeout(() => $('#player')?.play().catch(() => {}), 50); }
+// nghe đủ 2 giây thì mở nút Chọn, không vẽ lại trang để tiếng không bị ngắt
+function heard(el, id) {
+  if (el.currentTime < 2 || el.dataset.h || V.state.heard?.[id]) return;
+  el.dataset.h = 1;
+  act({ type: 'heard', id }, true).then(() => { const b = document.getElementById('pick-' + id); if (b) { b.disabled = false; b.textContent = 'Chọn'; b.title = ''; } });
+}
+
+// ---------------------------------------------------------------- 4 Chuyển động
+function vMotion(d, st) {
+  const a = d.segments[0].cards[0].preview?.img || d.segments[0].still, b = d.segments[1].cards[0].preview?.img || d.segments[1].still;
+  const M = d.motion.find(m => m.id === (ui.motion || st.motion)) || d.motion[0];
+  const mv = m => `<div class="mv mv-${m.css}"><img class="a" src="${a}"><img class="b" src="${b}"></div>`;
+  return `<h2>Chuyển động</h2><p class="sub">1 kiểu chuyển động cho cả video. Xem thử là animation trên ảnh tĩnh, gần đúng nhịp.</p>
+  <div class="split">
+    <div class="stage" id="mstage">${motionStage(d, M)}</div>
+    <div><div class="cards">${d.motion.map((m, k) => `<div class="card ${st.motion === m.id ? 'sel' : ''}" onmouseenter="peek('${m.id}')" onclick="ui.motion='${m.id}';act({type:'motion',id:'${m.id}'})">
+      <span class="num">${k + 1}</span><span class="tag">Đã chọn</span>${mv(m)}
+      <h3>${esc(m.name)} <span class="src">(${esc(m.source)})</span></h3><p>${esc(m.desc)}</p>
+      <details class="tech" onclick="event.stopPropagation()"><summary>Chi tiết kỹ thuật</summary><div><code>${esc(JSON.stringify(m.spec))}</code></div></details></div>`).join('')}</div>
+    <details class="tech" style="margin-top:14px"><summary>Engine làm được gì</summary><table>${d.engineMotion.map(([k, v]) => `<tr><td><code>${esc(k)}</code></td><td>${esc(v)}</td></tr>`).join('')}</table></details></div></div>`;
+}
+
+// khung xem trước lớn của bước 4: rê chuột qua thẻ chỉ đổi khung này, không vẽ lại trang
+function motionStage(d, M) {
+  const a = d.segments[0].cards[0].preview?.img || d.segments[0].still, b = d.segments[1].cards[0].preview?.img || d.segments[1].still;
+  return `<div class="mv mv-${M.css}" style="max-height:none"><img class="a" src="${a}"><img class="b" src="${b}"></div><div class="status">Đang xem: ${esc(M.name)}</div>`;
+}
+function peek(id) { const M = V.data.motion.find(m => m.id === id), el = document.getElementById('mstage'); if (M && el) el.innerHTML = motionStage(V.data, M); }
+
+// ---------------------------------------------------------------- 5 Xem & chốt + bút vẽ + nút Chốt
+let pen = null;   // nét đang vẽ (chưa ghim): {seg, pts}
+function vReview(d, st) {
+  const p = d.presets.find(x => x.id === st.preset), snd = d.sound.find(x => x.id === st.sound), mo = d.motion.find(x => x.id === st.motion);
+  const Z = d.safeZones.zones, zk = ui.zone === 'off' ? null : Z[ui.zone] ? ui.zone : Object.keys(Z)[0], z = zk && Z[zk], cap = d.captions?.[st.preset || 'p2'];
+  const ri = Math.max(0, d.segments.findIndex(s => s.id === ui.rseg)), rs = d.segments[ri], rss = st.segments[rs.id], rc = rs.cards.find(c => c.id === rss.selected);
+  const notes = st.notes || [], segNotes = notes.filter(n => n.seg === rs.id), C = V.commit || { blockers: ['server cũ, chưa có chốt'], code: '' };
+  const capY = cap?.y || 1010, els = [{ n: 'Bảng nửa trên', r: [60, 230, 1020, 900] }, { n: 'Phụ đề', r: [190, capY - 45, 890, capY + 45] }];
+  if (d.segments.some(s => st.segments[s.id]?.selected === 'D1')) els.push({ n: 'Phụ đề cảnh kết quả', r: [190, 1435, 890, 1525] });
+  if (d.segments.some(s => st.segments[s.id]?.selected === 'F3')) els.push({ n: 'Thẻ Theo dõi', r: [140, 1340, 940, 1500] });
+  const hit = (r, q) => r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1];
+  const warn = Object.values(Z).flatMap(z => { const zs = [[0, 0, 1080, z.top], [0, 1920 - z.bottom, 1080, 1920], [1080 - z.right, 860, 1080, 1920 - z.bottom]];
+    return els.flatMap(e => zs.filter(q => hit(e.r, q)).map(q => { const dx = Math.min(e.r[2], q[2]) - Math.max(e.r[0], q[0]), dy = Math.min(e.r[3], q[3]) - Math.max(e.r[1], q[1]);
+      return `${e.n} lấn ${dx}x${dy} px vào vùng ${q[1] === 0 ? 'trên' : q[3] === 1920 ? 'dưới' : 'cột nút phải'} của ${z.label}`; })); });
+  const no = t => `<span style="color:var(--red)">chưa chọn (${t})</span>`;
+  const pathD = pts => pts.map((q, i) => `${i ? 'L' : 'M'}${q[0]} ${q[1]}`).join('');
+  const committed = st.committedAt ? `<div class="${st.changedAfterCommit ? 'flagbox' : 'muted'}" style="margin-top:8px">${st.changedAfterCommit ? '<b>Có thay đổi sau lần chốt</b> lúc ' : 'Đã chốt, đã ghi choices.json lúc '}${new Date(st.committedAt).toLocaleString('vi-VN')}${st.changedAfterCommit ? '. Bấm Chốt lại để cập nhật.' : ''}</div>` : '';
+  return `<h2>Xem & chốt</h2><p class="sub">Xem từng đoạn, khoanh chỗ chưa ưng và ghi chú. Đủ hết thì bấm Chốt.</p>
+  <div class="split">
+    <div class="stage">
+      <div class="row" style="margin:0 0 8px;justify-content:space-between"><button class="ghost" ${ri ? '' : 'disabled'} onclick="ui.rseg='${d.segments[ri - 1]?.id}';pen=null;keepUi();render()">‹</button>
+        <b>Đoạn ${ri + 1} · ${clock(rs.from)}–${clock(rs.to)}</b><button class="ghost" ${ri < d.segments.length - 1 ? '' : 'disabled'} onclick="ui.rseg='${d.segments[ri + 1]?.id}';pen=null;keepUi();render()">›</button></div>
+      <div class="frame" id="pf" style="${ui.pen ? 'cursor:crosshair' : ''}"><img src="${rc?.preview?.ok ? rc.preview.img : rs.still}">
+        ${z ? `<div class="zone" style="top:0;height:${z.top / 19.2}%"></div><div class="zone" style="bottom:0;height:${z.bottom / 19.2}%"></div><div class="zone r" style="right:0;top:${860 / 19.2}%;bottom:${z.bottom / 19.2}%;width:${z.right / 10.8}%"></div>` : ''}
+        <svg id="pensvg" viewBox="0 0 1080 1920" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;${ui.pen ? '' : 'pointer-events:none'}">
+          ${segNotes.map(n => { const k = notes.indexOf(n) + 1, [x, y] = n.path[0]; return `<path d="${pathD(n.path)}" fill="none" stroke="#FF5D50" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x}" cy="${y}" r="34" fill="#FF5D50"/><text x="${x}" y="${y + 13}" font-size="38" font-weight="700" text-anchor="middle" fill="#fff">${k}</text>`; }).join('')}
+          <path id="live" d="${pen?.seg === rs.id ? pathD(pen.pts) : ''}" fill="none" stroke="#F2C230" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="status">${esc(rc?.name)} <span>(${esc(rc?.source)})</span></div>
+      <div class="zbtn"><button class="${ui.pen ? 'on' : ''}" onclick="ui.pen=!ui.pen;pen=null;render()">✏ ${ui.pen ? 'Đang khoanh: kéo chuột trên hình' : 'Khoanh vùng chưa ưng'}</button></div>
+      <div id="noteform">${noteForm(rs)}</div>
+      ${segNotes.length ? `<div style="margin-top:8px">${segNotes.map(n => `<div class="muted" style="display:flex;gap:6px;align-items:baseline"><b style="color:var(--red)">${notes.indexOf(n) + 1}</b><span style="flex:1">${clock(n.t)} · ${esc(n.text)}${n.fixed ? ` <span style="color:var(--gold)">✓ đã sửa: ${esc(n.fixed.what)}</span>` : ''}</span><button class="ghost" style="padding:0 8px" onclick="act({type:'delnote',id:'${n.id}'})">×</button></div>`).join('')}</div>` : ''}
+      <div class="zbtn">${Object.entries(Z).map(([k, x]) => `<button class="${k === zk ? 'on' : ''}" onclick="ui.zone='${k}';keepUi();render()">${esc(x.label)}</button>`).join('')}<button class="${zk ? '' : 'on'}" onclick="ui.zone='off';keepUi();render()">Ẩn vùng</button></div>
+      <div class="muted" style="margin-top:4px">Vùng đỏ = nút của app che (ước lượng).</div>
+      ${warn.length ? `<details class="tech" style="margin-top:6px"><summary style="color:#FFB3AC">${warn.length} chỗ lấn vùng nút</summary>${warn.map(w => `<div>${esc(w)}</div>`).join('')}</details>` : ''}
+      <div class="status">Ảnh bìa (khung ở hook)</div><div class="covers" style="margin-top:8px">${d.cover.map(c => `<div class="card ${st.cover === c.id ? 'sel' : ''}" onclick="act({type:'cover',id:'${c.id}'})"><img src="${c.img}"><div class="muted">${clock(c.src)}</div></div>`).join('')}</div>
+      <div style="margin-top:16px;border-top:1px solid var(--line);padding-top:12px">
+        <button class="main" id="commit" ${C.blockers.length ? 'disabled' : ''} onclick="commitNow()">${C.blockers.length ? '🔒 ' : ''}Chốt & dựng thành phẩm</button>
+        ${C.blockers.length ? `<div class="flagbox" style="margin-top:8px"><b>Chưa chốt được:</b>${C.blockers.map(b => `<div>• ${esc(b)}</div>`).join('')}</div>` : '<div class="muted" style="margin-top:6px">Bấm Chốt: lựa chọn + ghi chú được ghi thành choices.json. Chưa dựng video cho tới khi bạn bảo.</div>'}
+        ${committed}
+        <details class="tech" style="margin-top:10px"><summary>Mã tóm tắt (dự phòng nếu nút Chốt không ghi được file)</summary>
+          <div>Nhắn trong chat: <b>chốt</b> + mã này.</div><textarea id="code" readonly style="width:100%;height:70px;background:#0008;color:var(--ink);border:1px solid var(--line);border-radius:6px;font:11px monospace" onclick="this.select()">${esc(C.code)}</textarea>
+          <button class="ghost" onclick="navigator.clipboard?.writeText(document.getElementById('code').value);this.textContent='Đã chép'">Chép mã</button></details>
+      </div></div>
+    <div class="panel"><table>
+      <tr><th>Màu + font</th><td>${p ? `${esc(p.label)} · tiêu đề ${esc(p.display.font)}, phụ đề ${esc(p.captions.font)} <span class="dots" style="display:inline-flex;vertical-align:middle">${[p.colors.paper, p.colors.ink, p.colors.accent].map(x => `<span style="background:${x}"></span>`).join('')}</span>` : no('Bước 1')}</td></tr>
+      <tr><th>Âm thanh</th><td>${snd ? esc(snd.name) : no('Bước 3')}</td></tr>
+      <tr><th>Chuyển động</th><td>${mo ? esc(mo.name) : no('Bước 4')}</td></tr>
+      <tr><th>Ghi chú bút vẽ</th><td>${notes.length ? `${notes.length} ghi chú` : 'chưa có'}</td></tr></table>
+      ${d.segments.map((s, i) => { const ss = st.segments[s.id], c = s.cards.find(x => x.id === ss.selected), k = s.cards.indexOf(c), v = ss.versions.at(-1), nn = notes.filter(n => n.seg === s.id).length;
+        return `<div class="segrow" style="cursor:pointer;${s.id === rs.id ? 'background:#F2C2300D;outline:1px solid #F2C23055;border-radius:8px' : ''}" onclick="ui.rseg='${s.id}';pen=null;keepUi();render()"><img src="${c?.preview?.ok ? c.preview.img : s.still}"><div>
+          <div><span class="time" style="color:var(--gold);font-weight:600">Đoạn ${i + 1} · ${clock(s.from)}–${clock(s.to)}</span> ${ss.locked ? `<span class="pill lock">🔒 v${v?.v}</span>` : '<span class="pill" style="color:var(--red)">chưa duyệt</span>'} ${s.flag.length ? '<span class="pill" style="color:var(--red)">⚑ thiếu tư liệu</span>' : ''} ${nn ? `<span class="pill" style="color:var(--red)">✏ ${nn}</span>` : ''}</div>
+          <div class="muted">“${esc(s.text)}”</div>
+          <div style="margin-top:4px">${LET[k] ?? '-'} · <b>${esc(c?.name)}</b> <span class="muted">(${esc(c?.source)})</span> <span class="pill">CapCut: ${esc(c?.capcut)}</span></div>
+          ${capsBox(d, st, s.id)}</div></div>`; }).join('')}</div></div>`;
+}
+function noteForm(rs) {
+  if (!pen || pen.seg !== rs.id || pen.pts.length < 2) return '';
+  const mid = ((rs.from + rs.to) / 2).toFixed(1);
+  return `<div class="panel" style="margin-top:8px;padding:10px"><div class="muted">Ghi chú cho vùng vừa khoanh</div>
+    <div style="display:flex;gap:6px;margin-top:6px;align-items:center"><span class="muted">Giây</span><input id="nt" type="number" step="0.1" min="${rs.from}" max="${rs.to}" value="${mid}" style="width:80px;background:#0008;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px">
+    <input id="nx" maxlength="200" placeholder="vd: chữ to quá, đè lên mặt" style="flex:1;background:#0008;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 6px"></div>
+    <div class="row"><button class="main" onclick="pinNote()">Ghim ghi chú</button><button class="ghost" onclick="pen=null;render()">Xoá nét</button></div></div>`;
+}
+async function pinNote() {
+  if (!pen) return;
+  const before = (V.state.notes || []).length;
+  await act({ type: 'note', seg: pen.seg, t: +document.getElementById('nt').value, text: document.getElementById('nx').value, path: pen.pts }, true);
+  if ((V.state.notes || []).length > before) pen = null;   // ghim lỗi (vd giờ ngoài đoạn): giữ nét để sửa
+  render();
+}
+async function commitNow() {
+  const b = document.getElementById('commit'); b.disabled = true; b.textContent = 'Đang ghi…';
+  await act({ type: 'commit' }); render();
+}
+// vẽ: kéo chuột trên khung, toạ độ quy về khung 1080x1920 của video
+document.addEventListener('pointerdown', e => {
+  const svg = e.target.closest?.('#pensvg'); if (!svg || !ui.pen) return;
+  const r = svg.getBoundingClientRect(), at = ev => [Math.round((ev.clientX - r.left) / r.width * 1080), Math.round((ev.clientY - r.top) / r.height * 1920)];
+  const seg = V.data.segments[Math.max(0, V.data.segments.findIndex(s => s.id === ui.rseg))].id;
+  pen = { seg, pts: [at(e)] }; svg.setPointerCapture(e.pointerId);
+  const live = document.getElementById('live'), draw = () => live.setAttribute('d', pen.pts.map((q, i) => `${i ? 'L' : 'M'}${q[0]} ${q[1]}`).join(''));
+  const mv = ev => { pen.pts.push(at(ev)); draw(); };
+  const up = () => { svg.removeEventListener('pointermove', mv); svg.removeEventListener('pointerup', up); document.getElementById('noteform').innerHTML = noteForm(V.data.segments.find(s => s.id === seg)); document.getElementById('nx')?.focus(); };
+  svg.addEventListener('pointermove', mv); svg.addEventListener('pointerup', up);
+});
+load();
+</script>
+</body>
+</html>

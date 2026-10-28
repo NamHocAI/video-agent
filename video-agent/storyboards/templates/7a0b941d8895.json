@@ -1,0 +1,245 @@
+{
+  "take": "edits/short-vid-tho-24s-mindang/assets/source.mp4",
+  "key": "7a0b941d8895",
+  "updatedFrom": "vid-tho-24s",
+  "updatedAt": "2026-10-27T15:10:10.556Z",
+  "segments": [
+    {
+      "from": 0,
+      "to": 5,
+      "text": "Thật sự thì đây chính xác là video mà mình làm bằng AI từ text chữ motion graphic chuyển cả.",
+      "from_slug": "vid-tho-24s",
+      "version": 2,
+      "card": {
+        "id": "A2",
+        "name": "Tiêu đề lớn 1 từ xanh",
+        "source": "thư viện",
+        "capcut": "sửa được",
+        "engine": "scene title",
+        "desc": "\"Video này làm bằng AI\", chữ AI chuyển xanh đúng lúc nói \"AI\". CapCut dựng lại thành chữ thường.",
+        "scene": {
+          "type": "title",
+          "lines": [
+            {
+              "text": "Video này",
+              "at": 0.2
+            },
+            {
+              "text": "làm bằng AI",
+              "at": 1,
+              "emph": "AI",
+              "emphAt": 2.42
+            }
+          ]
+        },
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/A2.jpg",
+          "full": "fx/full/A2.jpg",
+          "at": 2.5,
+          "short": 2.3,
+          "how": "engine stills, title"
+        }
+      }
+    },
+    {
+      "from": 5,
+      "to": 9.1,
+      "text": "Có thể là ngày trước ấy để làm một cái video như thế này mình sẽ phải mất gần một ngày.",
+      "from_slug": "vid-tho-24s",
+      "version": 1,
+      "card": {
+        "id": "B2",
+        "name": "Bộ đếm số giờ",
+        "source": "thư viện",
+        "capcut": "clip phẳng",
+        "engine": "scene stat",
+        "desc": "Đếm 0 → 24 giờ trên \"mất gần một ngày\".",
+        "scene": {
+          "type": "stat",
+          "value": 24,
+          "suffix": " giờ",
+          "countFrom": 7.5,
+          "countTo": 8.6,
+          "y": 560,
+          "size": 260
+        },
+        "previewAt": 8.8,
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/B2.jpg",
+          "full": "fx/full/B2.jpg",
+          "at": 8.8,
+          "short": 8.1333,
+          "how": "engine stills, stat"
+        }
+      }
+    },
+    {
+      "from": 9.1,
+      "to": 12.45,
+      "text": "Nhưng mà khi đã có AI mình chỉ mất khoảng độ một đến hai tiếng thôi.",
+      "from_slug": "vid-tho-24s",
+      "version": 1,
+      "card": {
+        "id": "C2",
+        "name": "Thanh so sánh trước / sau",
+        "source": "thư viện",
+        "capcut": "clip phẳng",
+        "engine": "scene bars",
+        "desc": "2 thanh: Ngày trước 24 h, Có AI 1,5 h, ngoặc chênh lệch hiện ở \"thôi\".",
+        "scene": {
+          "type": "bars",
+          "y": 420,
+          "rows": [
+            {
+              "label": "Ngày trước",
+              "value": 1,
+              "at": 9.3,
+              "dark": true
+            },
+            {
+              "label": "Có AI",
+              "value": 0.07,
+              "at": 10.1,
+              "blue": true
+            }
+          ],
+          "gapAt": 11.9,
+          "gapChip": {
+            "text": "còn 1-2 tiếng",
+            "at": 12
+          }
+        },
+        "previewAt": 12.2,
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/C2.jpg",
+          "full": "fx/full/C2.jpg",
+          "at": 12.2,
+          "short": 11.3,
+          "how": "engine stills, bars"
+        }
+      }
+    },
+    {
+      "from": 12.45,
+      "to": 14.45,
+      "text": "Thật sự là nó quá là nhanh đi.",
+      "from_slug": "vid-tho-24s",
+      "version": 2,
+      "card": {
+        "id": "D2",
+        "name": "Tiêu đề \"quá nhanh\"",
+        "source": "thư viện",
+        "capcut": "sửa được",
+        "engine": "scene title",
+        "desc": "1 dòng lớn \"Quá là nhanh\", chữ \"nhanh\" chuyển xanh.",
+        "scene": {
+          "type": "title",
+          "lines": [
+            {
+              "text": "Quá là nhanh",
+              "at": 12.6,
+              "emph": "nhanh",
+              "emphAt": 13.58
+            }
+          ]
+        },
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/D2.jpg",
+          "full": "fx/full/D2.jpg",
+          "at": 13.45,
+          "short": 12.4667,
+          "how": "engine stills, title"
+        }
+      }
+    },
+    {
+      "from": 14.45,
+      "to": 19.1,
+      "text": "Nên là mình cũng suy nghĩ là không biết anh em editor mai này sẽ làm việc kiểu gì nhỉ?",
+      "from_slug": "vid-tho-24s",
+      "version": 1,
+      "card": {
+        "id": "E2",
+        "name": "Tiêu đề câu hỏi",
+        "source": "thư viện",
+        "capcut": "sửa được",
+        "engine": "scene title",
+        "desc": "\"Editor mai này làm gì?\", chữ \"gì\" chuyển xanh.",
+        "scene": {
+          "type": "title",
+          "lines": [
+            {
+              "text": "Editor mai này",
+              "at": 14.6
+            },
+            {
+              "text": "làm gì?",
+              "at": 17.5,
+              "emph": "gì?",
+              "emphAt": 18.54
+            }
+          ]
+        },
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/E2.jpg",
+          "full": "fx/full/E2.jpg",
+          "at": 16.775,
+          "short": 15.5333,
+          "how": "engine stills, title"
+        }
+      }
+    },
+    {
+      "from": 19.1,
+      "to": 24.52,
+      "text": "Nhưng mà với cái tình hình hiện tại thì mình nghĩ là anh em edit mai này ấy chỉ hơn nhau ở cái tư duy và cách làm ý tưởng thôi.",
+      "from_slug": "vid-tho-24s",
+      "version": 1,
+      "card": {
+        "id": "F1",
+        "name": "Checklist tick tư duy + ý tưởng",
+        "source": "đang dùng",
+        "capcut": "clip phẳng",
+        "engine": "overlay · source/stage.html",
+        "desc": "2 ô tick đúng lúc nói \"tư duy\" và \"ý tưởng\".",
+        "previewAt": 23.1,
+        "extraScenes": [
+          {
+            "type": "board",
+            "layer": "over",
+            "items": [
+              {
+                "k": "stamp",
+                "text": "TƯ DUY",
+                "size": 90,
+                "rot": -0.08,
+                "x": 320,
+                "y": 870,
+                "at": 22.66
+              }
+            ]
+          }
+        ],
+        "mediaCheck": [],
+        "preview": {
+          "ok": true,
+          "img": "fx/F1.jpg",
+          "full": "fx/full/F1.jpg",
+          "at": 23.1,
+          "short": 21.4,
+          "how": "engine stills, spec hiện tại"
+        }
+      }
+    }
+  ]
+}

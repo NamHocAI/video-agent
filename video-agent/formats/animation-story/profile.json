@@ -1,0 +1,14 @@
+{
+  "format": "animation-story",
+  "status": "tối thiểu",
+  "style": "kem-3d",
+  "learnedFrom": "edits/short-cartoon-tho-trang-v2/source/spec.js (5 clip hoạt hình thỏ, giọng đọc riêng, style kem-3d)",
+  "scoreHighWhen": { "animShare": ">= 0.6", "faceShare": "0", "screenShare": "< 0.1" },
+  "input": { "orientation": "any (take mẫu 1280x720 ngang)", "needsVoiceover": true, "clipAudio": "tắt tiếng clip (thường chỉ có nhạc)", "clips": "nhiều clip hoạt hình ngắn 13-22 s" },
+  "framing": { "layoutKeys": [[0, 1920]], "cam": "không có mặt, khung giữa", "clipsAs": "clip hoạt hình đặt trong component đoạn (HTML alpha) trên nền giấy" },
+  "segments": { "how": "mỗi đoạn 1 component HTML alpha, gắn ở thời điểm từ đầu tiên (SOURCE s)", "count": "7 đoạn / ~46 s ở take mẫu" },
+  "captions": null,
+  "cuts": null,
+  "sound": null,
+  "unknown": ["nhịp cắt chuẩn", "cỡ/vị trí phụ đề riêng cho format", "mức nhạc", "giọng đọc local (bản mẫu dùng ElevenLabs, trái quy tắc local-only)"]
+}
