@@ -1,129 +1,93 @@
-# Video Agent
+# Video Agent — storyboard-first short-form video editing, for Claude Code
 
-> Quy trình dựng video ngắn (9:16) bằng Claude Code: học style từ một reel mẫu, lên storyboard trên chính cảnh quay, duyệt rồi mới render. Chạy hoàn toàn trên máy, không cần dịch vụ trả phí.
+**English** · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md)
 
-![platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-informational)
-![runtime](https://img.shields.io/badge/runtime-Node%2020%2B%20%C2%B7%20ffmpeg-blue)
-![output](https://img.shields.io/badge/output-1080x1920%20%C2%B7%20%E2%88%9214%20LUFS-success)
+A Claude Code workspace that edits vertical shorts (1080×1920) from a raw talking-head take. It learns a style from a reference reel, plans the edit as a storyboard drawn on your own footage, waits for your approval, then renders. Everything runs on your machine with Node, ffmpeg and Chrome: no paid service, no upload.
 
----
+## How it works
 
-## Mục lục
+Nothing expensive happens before you have approved something cheap.
 
-- [Tính năng](#tính-năng)
-- [Quy trình](#quy-trình)
-- [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-- [Cài đặt](#cài-đặt)
-- [Sử dụng nhanh](#sử-dụng-nhanh)
-- [Cổng storyboard](#cổng-storyboard)
-- [Nguyên tắc dựng](#nguyên-tắc-dựng)
-- [Dữ liệu local và Git](#dữ-liệu-local-và-git)
+| step | what you see | you decide |
+|---|---|---|
+| 0. Style | a reference reel measured shot by shot: cut rhythm, face size, zooms, titles, music level, sound hits | the style name |
+| 1. Start | your take measured (face share, voice, pace, screen recordings) and a proposed format, with the evidence | confirm or change the format |
+| 2. Storyboard | every segment as a frame **and an animated GIF on your real footage**, 2–3 colour/font variants of the style, sound and motion options, cover frames | approve per segment, or draw a note on the frame |
+| 3. Commit | the final video renders on its own, in a detached process | — |
+| 4. Review | per-segment render vs preview, loudness per segment, a side-by-side with the reference reel, one full-size frame | notes → a revision |
 
----
+## What's in the box
 
-## Tính năng
+- **Storyboard gate** (`.claude/skills/storyboard-gate/`) — on by default before any new edit. Measures the take, proposes a format, builds a local review page (`http://127.0.0.1:4747`), and only exports after you press **Commit & render**.
+- **One spec for preview and render** (`cardspec.mjs`) — what you approve is exactly what gets rendered.
+- **Animated previews** (`gif.mjs`) — each segment rendered at half size on the real footage and looped as a GIF.
+- **Style variants** — a style ships 2–3 colour/font variants (`styles/<style>/bien-the/<variant>/`); switching one redraws every preview in that variant.
+- **Safety-net render** (`auto-final.mjs`) — pressing Commit starts the final render on its own, so a finished video exists even if the session stops. With the session still running, the full review still happens.
+- **Checkpointed renders** (`render-seg.mjs`) — a failed segment resumes where it stopped.
+- **QC** (`qc.mjs`, `seg-gain.mjs`, `compare.py`) — text under 32 px, overlaps, safe zones, −14 ±1 LUFS and ≤ −1 dBTP per segment, preview-vs-render match (≤ 8 px, ≤ 12/255).
+- **Format profiles** (`video-agent/formats/`) — a router and one profile per format: `talking-head`, `faceless-broll`, `animation-story`.
 
-| | |
-|---|---|
-| **Học style từ reel mẫu** | Đo nhịp cắt, cỡ mặt, zoom, chữ, nhạc và hiệu ứng âm thanh của một reel rồi lưu thành style dùng lại (`/steal`). |
-| **Cổng storyboard** | Phân tích take, đề xuất format, dựng trang duyệt với ảnh xem trước và **GIF động trên footage thật** cho từng đoạn. |
-| **Biến thể trong cùng style** | Mỗi style có 2–3 biến thể màu/font; đổi biến thể là ảnh xem trước tự vẽ lại theo đúng biến thể đó. |
-| **Lưới an toàn khi render** | Bấm *Chốt* là thành phẩm tự dựng trong tiến trình riêng (`auto-final.mjs`); phiên làm việc dừng giữa chừng vẫn có video. |
-| **Soát chất lượng** | Kiểm tra cỡ chữ, chồng chữ, vùng an toàn, độ lớn từng đoạn (−14 ±1 LUFS, đỉnh ≤ −1 dBTP) trước khi giao. |
+## Editing principles
 
-## Quy trình
+Learned from real rejected cuts, and written into the skill so the next edit starts right:
 
-```mermaid
-flowchart LR
-    A[Reel mẫu] -->|/steal| B[Style]
-    C[Take thô] --> D[Bước Bắt đầu<br/>đo take + chọn format]
-    B --> D
-    D --> E[Storyboard<br/>ảnh + GIF trên footage]
-    E -->|duyệt / sửa| E
-    E -->|Chốt| F[Render<br/>auto-final]
-    F --> G[Soát: âm lượng,<br/>so với reel mẫu, khung full-size]
-    G --> H[Thành phẩm .mp4]
-```
+- **On-screen text follows what is actually said**, not the script; a key word appears when it is spoken. "Below" means the text sits below, with an arrow.
+- **Objects that are named but not filmed get a real, context-exact photo** (the Vietnamese passport for a Vietnamese speaker, the school that is named), cut out as a sticker in the style's look.
+- **Motion is invented from the take**: one action per segment, tied to the line (a phone rings on "call", a stamp slams on "scam"), never a stock preset.
+- **The style stays recognisable**: its fonts, palette and way of revealing text, nothing outside it.
+- **Self-check before review**: no text off the frame, nothing over the face, decorations never over text.
 
-1. **Bắt đầu** – đo take thật (tỉ lệ có mặt người, giọng, nhịp, quay màn hình), kiểm tra đầu vào, đề xuất 1 format chính + 1 dự phòng.
-2. **Storyboard** – mỗi đoạn có thẻ hiệu ứng gắn đúng câu nói, ảnh xem trước và GIF; chọn biến thể màu/font, âm thanh, chuyển động, ảnh bìa.
-3. **Chốt** – ghi `choices.json`, tự dựng thành phẩm.
-4. **Soát** – render từng đoạn, so với ảnh xem trước, đo âm lượng, so với reel mẫu, rồi mới giao.
+## Install
 
-## Cấu trúc thư mục
-
-```text
-.
-├── CLAUDE.md                          # quy tắc dự án cho Claude Code (cổng storyboard bật mặc định)
-├── .claude/skills/storyboard-gate/
-│   ├── SKILL.md                       # hướng dẫn đầy đủ của cổng storyboard
-│   ├── scripts/
-│   │   ├── start.mjs                  # bước Bắt đầu: đo take, đề xuất format
-│   │   ├── preview.mjs                # ảnh xem trước + mẫu âm thanh + ảnh bìa
-│   │   ├── gif.mjs                    # GIF động từng đoạn trên footage thật
-│   │   ├── build-wizard.mjs           # dựng trang duyệt
-│   │   ├── server.mjs                 # trang duyệt local (http://127.0.0.1:4747)
-│   │   ├── cardspec.mjs               # 1 spec cho cả ảnh xem trước lẫn render
-│   │   ├── render-seg.mjs             # render từng đoạn, có checkpoint
-│   │   ├── auto-final.mjs             # tự dựng thành phẩm sau khi Chốt
-│   │   └── qc.mjs · seg-gain.mjs · compare.py · …
-│   └── wizard/index.html
-└── video-agent/
-    ├── formats/                       # ROUTER.md + hồ sơ từng format (talking-head, faceless-broll, animation-story)
-    └── storyboards/templates/         # template dùng lại cho các take cùng nguồn
-```
-
-Thư mục local (không có trên GitHub): `styles/`, `takes/`, `edits/`, `inputs/`, `presets/`, `backups/`.
-
-## Cài đặt
-
-**Yêu cầu:** [Claude Code](https://claude.com/claude-code), Node.js 20+, ffmpeg, yt-dlp, Python 3 (cho `compare.py`).
+Requirements: [Claude Code](https://claude.com/claude-code), Node 20+, ffmpeg, yt-dlp, Python 3. The render engine (`short-editing`) and the global skills live in `~/.claude/skills/`; on a new machine run `/studio-setup` once.
 
 ```bash
 git clone https://github.com/NamHocAI/video-agent.git
 cd video-agent
 ```
 
-Engine dựng (`short-editing`) và các skill toàn cục nằm trong `~/.claude/skills/`. Lần đầu chạy `/studio-setup` để cài công cụ còn thiếu.
+## Usage
 
-## Sử dụng nhanh
+In Claude Code:
 
 ```text
-/steal <link reel mẫu>                       # học style mới
-/short-editing <take> style <tên-style>      # dựng 1 video (cổng storyboard tự chạy trước)
+/steal <reference reel link>                  # learn a new style
+/short-editing <take> style <style-name>      # edit one video (the storyboard gate runs first)
 ```
 
-Chạy tay từng bước (từ thư mục `video-agent/`):
+Step by step, from `video-agent/`:
 
 ```bash
-node ../.claude/skills/storyboard-gate/scripts/start.mjs takes/<take>.mp4 --style <tên-style>
+node ../.claude/skills/storyboard-gate/scripts/start.mjs takes/<take>.mp4 --style <style-name>
 node ../.claude/skills/storyboard-gate/scripts/preview.mjs edits/short-<slug>/storyboard/plan.json
 node ../.claude/skills/storyboard-gate/scripts/gif.mjs edits/short-<slug>/storyboard/plan.json
 node ../.claude/skills/storyboard-gate/scripts/build-wizard.mjs edits/short-<slug>/storyboard/plan.json
 node ../.claude/skills/storyboard-gate/scripts/server.mjs edits/short-<slug>/storyboard --port 4747
 ```
 
-Dựng lại thành phẩm khi cần (sau khi đã Chốt):
+Render the final again after a commit:
 
 ```bash
 node ../.claude/skills/storyboard-gate/scripts/auto-final.mjs edits/short-<slug>/storyboard
 ```
 
-## Cổng storyboard
+## Repository layout
 
-- Bật **mặc định** trước mọi lần dựng take mới; chỉ bỏ qua cho đúng 1 video khi người dùng nói rõ (ghi `storyboards/<slug>/SKIP.md`).
-- Kịch bản và B-roll **không bắt buộc**; thiếu video thô hoặc style thì dừng và báo.
-- Chỉ xuất video sau khi bấm **Chốt & dựng thành phẩm** (hoặc gửi mã `SB1-…`).
-- Chi tiết: [`SKILL.md`](.claude/skills/storyboard-gate/SKILL.md).
+```text
+.
+├── CLAUDE.md                          # project rules for Claude Code (storyboard gate on by default)
+├── .claude/skills/storyboard-gate/
+│   ├── SKILL.md                       # the full gate procedure and the user's standing rules
+│   ├── scripts/                       # start · preview · gif · build-wizard · server · cardspec
+│   │                                  # render-seg · auto-final · qc · seg-gain · compare.py · …
+│   └── wizard/index.html              # the review page
+└── video-agent/
+    ├── formats/                       # ROUTER.md + one profile per format
+    └── storyboards/templates/         # reusable segment templates for takes of the same source
+```
 
-## Nguyên tắc dựng
+Kept local, never pushed: `styles/`, `takes/`, `edits/`, `inputs/`, `presets/`, `backups/`, every `.env`, and all media (video, audio, images, fonts, renders).
 
-- **Chữ theo lời nói thật**, từ nhấn hiện đúng lúc được nói; lời chỉ hướng ("dưới đây") thì chữ/hình theo đúng hướng.
-- **Ảnh thật, đúng ngữ cảnh** cho đồ vật được nhắc mà take không có, làm sticker cùng kiểu với style.
-- **Chuyển động sáng tạo theo take**, mỗi đoạn một hành động chính, không dùng preset chung.
-- **Nhìn là biết style**: đúng font, bảng màu, cách hiện chữ của style.
-- **Tự soát trước khi đưa duyệt**: không tràn mép, không che mặt, trang trí không đè chữ.
+## Contributing
 
-## Dữ liệu local và Git
-
-Repo chỉ chứa **mã nguồn và tài liệu**. `.gitignore` loại `.env`, take thô, media (video, ảnh, nhạc, font), bản render, storyboard đang làm, style và preset cá nhân. Không commit secrets, media nguồn hoặc output render.
+Commit source and docs only. No secrets, no source media, no rendered output.
