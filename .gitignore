@@ -15,6 +15,7 @@ video-agent/audits/
 video-agent/backups/
 video-agent/repurpose/
 video-agent/styles/
+video-agent/assets/
 video-agent/presets/
 video-agent/style.json
 video-agent/styles/**/assets/
