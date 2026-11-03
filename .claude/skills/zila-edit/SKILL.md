@@ -10,7 +10,7 @@ Luật đầy đủ + bảng kiểm: `video-agent/styles/zila/STYLE.md` (đọc 
 ## 1. Đầu vào (tự lấy)
 - Sheet giao việc: export CSV/xlsx (`/export?format=xlsx`), đọc cột Chủ đề, Brief, Kênh, Deadline; link "video mẫu tại đây" là hyperlink (openpyxl `cell.hyperlink`). Xoá bản sao ngay (có CCCD/STK). Mỗi video theo ĐÚNG mẫu của dòng nó.
 - File thô trên Drive: `gdown <id>`; "Only the owner and editors" → mở `drive.google.com/file/d/<id>/view` trong Chrome của người dùng, `location.href` cho ra id thật có quyền, rồi `gdown <id thật> -O video-agent/takes/<slug>.mov`.
-- Logo trường: web chính thức trước (trang UI/symbol, `curl` + grep ảnh), Google Images trong Chrome nếu cần. Ảnh minh hoạ: web Zila → web trường → Pexels. Ghi `assets/images/NGUON.txt`.
+- Logo trường: `node ~/.claude/skills/short-editing/engine/short.mjs logo find <tên trường>` trước (kho logo), không có mới tìm: web chính thức trước (trang UI/symbol, `curl` + grep ảnh), Google Images trong Chrome nếu cần. Ảnh minh hoạ: web Zila → web trường → Pexels. Ghi `assets/images/NGUON.txt`.
 - Video mẫu mới: chạy `/steal` rồi cập nhật STYLE.md (không tạo style khác).
 
 ## 2. Dựng (thư mục gốc dự án)
