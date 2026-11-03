@@ -12,7 +12,7 @@ Người dùng gọi số (vd "làm A1"), làm từng phần một, xong thì đ
 - [x] **A2. `stage.html` không chép nguyên file mỗi video** (xong 2026-11-03, trong LÕI short-editing: runtime lớp chữ chung `engine/stage/runtime.js`, `init` tự tạo vỏ + dữ liệu; video chỉ còn `source/stage.data.js` 1,6–2,5 KB thay vì 17–19 KB; Zila chuyển xong, so 423 khung với bản gốc lệch 1 khung không thấy được. Style chia-se-meo cũ chưa chuyển, style mới làm theo cách này qua /steal)
   Mỗi video đang có một bản 17–26 KB và nhiều bản nháp (`v1`, `v1b`, `before-fx`).
   Đổi thành: mẫu của style + một file nhỏ chỉ ghi phần khác (chữ, mốc giờ, ảnh). Sửa thì chỉ đọc file nhỏ.
-- [ ] **A3. Đọc tài liệu theo phần**
+- [x] **A3. Đọc tài liệu theo phần** (xong 2026-11-03, LÕI short-editing: `engine/doc.mjs` + mục lục đầu scene-library.md / style-schema.md; 1 video điển hình đọc ~4 KB thay vì 66 KB, giảm ~93 %, khoảng 16k → 1k token)
   Chỉ đọc mục scene cần dùng trong `scene-library.md` (khoảng 16 nghìn token) và `style-schema.md`, không đọc cả file.
   Thêm mục lục ngắn ở đầu để tra.
 - [ ] **A4. Gộp và rút gọn luật**
