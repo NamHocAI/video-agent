@@ -1,4 +1,5 @@
 # Format: faceless-broll (bản tối thiểu, chưa có take mẫu)
+> **Tạm thời (28/10/2026):** style riêng của format này đã bị xóa; đang dùng tạm `chia-se-meo`. Thêm style riêng bằng `/steal <reel mẫu cùng loại>` rồi sửa `profile.json`.
 
 ## Chấm điểm cao khi
 - Gần như không có mặt người (< 10 %), không phải quay màn hình (< 30 %), không phải hoạt hình (< 30 %).

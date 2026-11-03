@@ -1,7 +1,7 @@
 {
   "format": "animation-story",
   "status": "tối thiểu",
-  "style": "kem-3d",
+  "style": "chia-se-meo", "styleNote": "tạm thời (28/10): style riêng sẽ thêm sau bằng /steal",
   "learnedFrom": "edits/short-cartoon-tho-trang-v2/source/spec.js (5 clip hoạt hình thỏ, giọng đọc riêng, style kem-3d)",
   "scoreHighWhen": { "animShare": ">= 0.6", "faceShare": "0", "screenShare": "< 0.1" },
   "input": { "orientation": "any (take mẫu 1280x720 ngang)", "needsVoiceover": true, "clipAudio": "tắt tiếng clip (thường chỉ có nhạc)", "clips": "nhiều clip hoạt hình ngắn 13-22 s" },

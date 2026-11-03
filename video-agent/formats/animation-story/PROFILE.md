@@ -1,4 +1,5 @@
 # Format: animation-story (bản tối thiểu)
+> **Tạm thời (28/10/2026):** style riêng của format này đã bị xóa; đang dùng tạm `chia-se-meo`. Thêm style riêng bằng `/steal <reel mẫu cùng loại>` rồi sửa `profile.json`.
 
 Học từ 1 project có thật trên máy: `edits/short-cartoon-tho-trang-v2/` (style `kem-3d`, 5 clip hoạt hình thỏ trong `takes/Đoạn demo *.mp4`).
 
