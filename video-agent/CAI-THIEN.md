@@ -18,7 +18,7 @@ Người dùng gọi số (vd "làm A1"), làm từng phần một, xong thì đ
 - [x] **A4. Gộp và rút gọn luật** (xong 2026-11-03: luật dựng chung về 1 chỗ = short-editing `references/style.md` "Every short"; storyboard-gate, steal learnings, bộ nhớ chỉ trỏ tới; bỏ luật cũ mâu thuẫn "chỉ lớp local / xong giai đoạn thì dừng" (cả trong HANDOFF tự sinh); tổng file luật 55,6 → 49,4 KB. Còn lại: STYLE.md của zila 20 KB, chia-se-meo 9 KB chưa rà)
   Luật đang nằm rải ở CLAUDE.md, storyboard-gate, STYLE.md, memory, learnings của /steal, có chỗ lặp nhau.
   Gom về đúng một chỗ, bỏ phần trùng, câu ngắn lại.
-- [ ] **A5. Không làm lại việc đã có**
+- [x] **A5. Không làm lại thứ đã có** (xong 2026-11-03, theo ý người dùng: kịch bản nghĩ tự do; thứ kịch bản cần mà kho đã có thì lấy trong kho. Lõi: `short.mjs logo find/add/list` + kho `video-agent/assets/logos/` (Zila, Kookmin, Ajou, quốc huy Hàn); engine vốn đã cache khung camera, matte, render theo dự án)
   Transcript, cắt lặng, ảnh logo trường, ảnh capture đã có thì dùng lại (cache theo file và ngày), không chạy lại.
   Kiểm tra lại cache hiện có chỗ nào còn chạy thừa.
 - [ ] **A6. Đo thời gian từng bước**
