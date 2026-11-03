@@ -5,11 +5,11 @@ Người dùng gọi số (vd "làm A1"), làm từng phần một, xong thì đ
 
 ## A. Tốc độ + token (làm trước)
 
-- [x] **A1. Script kiểm lỗi tự động thay soát bằng mắt** (xong 2026-11-03: `.claude/skills/storyboard-gate/scripts/qa-stage.mjs`, 10–15 s/video, cài lỗi thử thì bắt được cả 6 loại; trước đây phải đọc ~10–20 ảnh/video, giờ chỉ đọc ảnh nào bị báo)
+- [x] **A1. Script kiểm lỗi tự động thay soát bằng mắt** (xong 2026-11-03, trong LÕI short-editing: `engine/qa.mjs`, lệnh `short.mjs qa`, `capture` tự chạy cho mọi style/mọi video; 10–15 s/video, cài lỗi thử bắt được cả 6 loại; chỉ đọc ảnh bị báo)
   Hiện tại AI chụp ảnh mỗi đoạn rồi nhìn, nên tốn token đọc ảnh và dễ sót.
   Làm script đo các lỗi: chữ tràn khung 1080, chữ đè mặt (dùng bộ dò mặt có sẵn), chữ đè vùng an toàn TikTok, font thiếu dấu tiếng Việt, decor đè chữ, ảnh logo mờ hoặc nhỏ.
   Chỉ khung bị báo lỗi mới cần xem ảnh.
-- [ ] **A2. `stage.html` không chép nguyên file mỗi video**
+- [x] **A2. `stage.html` không chép nguyên file mỗi video** (xong 2026-11-03, trong LÕI short-editing: runtime lớp chữ chung `engine/stage/runtime.js`, `init` tự tạo vỏ + dữ liệu; video chỉ còn `source/stage.data.js` 1,6–2,5 KB thay vì 17–19 KB; Zila chuyển xong, so 423 khung với bản gốc lệch 1 khung không thấy được. Style chia-se-meo cũ chưa chuyển, style mới làm theo cách này qua /steal)
   Mỗi video đang có một bản 17–26 KB và nhiều bản nháp (`v1`, `v1b`, `before-fx`).
   Đổi thành: mẫu của style + một file nhỏ chỉ ghi phần khác (chữ, mốc giờ, ảnh). Sửa thì chỉ đọc file nhỏ.
 - [ ] **A3. Đọc tài liệu theo phần**
