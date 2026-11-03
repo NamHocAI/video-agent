@@ -24,6 +24,7 @@ Luật đầy đủ + bảng kiểm: `video-agent/styles/zila/STYLE.md` (đọc 
 8. `bash video-agent/styles/zila/thumb.sh <slug> <khung cười mắt mở> <logo trường> "Điều kiện tuyển sinh" "hệ D4-1" "ĐH <TRƯỜNG>" <tên>`.
 
 ## 3. Soát trước khi giao (bắt buộc)
+- Trước tiên: `node .claude/skills/storyboard-gate/scripts/qa-stage.mjs video-agent/edits/short-<slug>` (~15 s). Sửa hết LỖI rồi chạy lại; chỉ mở ảnh `stills/qa/` của dòng nó báo, không chụp soát từng đoạn.
 - Tấm ghép bản cuối cạnh video mẫu theo từng giây + 4 khung cỡ thật: mở đầu nhòe + gõ chữ, nhịp tự nhiên, nhạc lo-fi nhỏ, 2 chuyển cảnh MỞ→THÂN→KẾT bằng hình người nói, logo trường sau đầu, chữ 62–82 % chiều cao, sticker ảnh thật đúng câu, xé giấy chấm in động, CTA comment, KHÔNG logo góc, KHÔNG đường kẻ Canva.
 - QC: h264 1080x1920, -14 ±1 LUFS, đỉnh ≤ -1 dBTP. Số liệu đọc lại từ lời nói (vd "sáu củ sáu" = 6.600.000 KRW) và nhắc người dùng rà.
 - Tên: `TIKTOK_DieuKienTuyenSinhDHKookmin_021126_V1.mp4` (+ `_thumb.jpg`). Bản cũ cho vào Thùng rác, giữ file thô.
