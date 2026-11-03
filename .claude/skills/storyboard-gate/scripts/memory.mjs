@@ -45,8 +45,8 @@ export function recall(plan) {
 const RULES = `QUY TẮC CHUNG (người dùng đặt, áp dụng cho tới khi họ nói khác):
 - Đây là SKILL chạy trong Claude Code trên máy người dùng (Windows), thư mục video-agent. Không cài app riêng, không tài khoản, không cloud, không API, không công cụ trả phí, không HyperFrames. Không dùng tên hay thương hiệu của creator khác cho skill.
 - Đừng đoán đường dẫn hay tên file. Chỗ nào không thấy thì nói rõ "không thấy", đừng bịa.
-- Ưu tiên làm ở lớp local (thư mục video-agent, profile format, router chọn format). Không sửa lõi skill gốc nếu có cách khác. Trước khi sửa bất kỳ file nào, backup bản gốc vào video-agent/backups/<ngày>-storyboard-gate/ rồi mới sửa.
-- Mỗi giai đoạn chỉ làm đúng phạm vi. Xong thì DỪNG và báo: file đã sửa/thêm, backup ở đâu, chỗ nào không khớp với máy và cách xử lý.
+- Cải thiện bộ skill thì sửa vào LÕI skill (short-editing, steal...) để mọi video, mọi style đều dùng; thư mục style chỉ giữ phần nhìn của style, trừ khi người dùng yêu cầu riêng. Backup trước vào video-agent/backups/<ngày>-.../, ghi thay đổi lõi vào short-editing/CHANGES.md.
+- Làm từ A đến Z, không hỏi lại (CLAUDE.md): tự chọn mặc định, dựng tới bản cuối; chỉ dừng khi thật sự không làm được. Luật dựng chung: short-editing references/style.md "Every short".
 - Yêu cầu không khớp cấu trúc thật thì nói rõ chỗ đó và cách xử lý.
 - Việc khó (nâng cấp engine, dựng hiệu ứng, ghi draft) thử tối đa 3 lần; quá 3 lần thì DỪNG, báo đã thử gì + kết quả + phương án tương đương, chờ người dùng chọn.
 - Tiết kiệm token: dùng lại spec/transcript/timing đã có, không chạy lại thứ đã chạy.
