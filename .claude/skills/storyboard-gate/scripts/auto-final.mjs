@@ -51,5 +51,7 @@ let projOut = null;
 if (proj && fs.existsSync(proj)) { fs.mkdirSync(path.join(proj, 'output'), { recursive: true }); projOut = path.join(proj, 'output', `${path.basename(proj)}.mp4`); fs.copyFileSync(out, projOut); }
 const qc = (r.stdout || '').split('\n').filter(l => /h264|LUFS|dBTP/.test(l)).slice(-2).join(' | ');
 status({ status: 'xong', step: 'final', file: path.relative(VA, dst), projectFile: projOut && path.relative(VA, projOut), qc });
+// dọn trang nháp của project; giữ _engine vì Claude còn soát sau bước này (lệnh all trên project sẽ dọn nốt)
+if (proj && fs.existsSync(proj)) run([SHORT, 'clean', proj, '--keep-engine'], VA);
 log('XONG -> ' + dst);
 console.log('thành phẩm: ' + dst);
