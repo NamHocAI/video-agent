@@ -27,7 +27,7 @@ Luật đầy đủ + bảng kiểm: `video-agent/styles/zila/STYLE.md` (đọc 
 - Trước tiên: `node ~/.claude/skills/short-editing/engine/short.mjs qa video-agent/edits/short-<slug>` (~15 s). Sửa hết LỖI rồi chạy lại; chỉ mở ảnh `stills/qa/<trang>/` của dòng nó báo, không chụp soát từng đoạn.
 - Tấm ghép bản cuối cạnh video mẫu theo từng giây + 4 khung cỡ thật: mở đầu nhòe + gõ chữ, nhịp tự nhiên, nhạc lo-fi nhỏ, 2 chuyển cảnh MỞ→THÂN→KẾT bằng hình người nói, logo trường sau đầu, chữ 62–82 % chiều cao, sticker ảnh thật đúng câu, xé giấy chấm in động, CTA comment, KHÔNG logo góc, KHÔNG đường kẻ Canva.
 - QC: h264 1080x1920, -14 ±1 LUFS, đỉnh ≤ -1 dBTP. Số liệu đọc lại từ lời nói (vd "sáu củ sáu" = 6.600.000 KRW) và nhắc người dùng rà.
-- Tên: `TIKTOK_DieuKienTuyenSinhDHKookmin_021126_V1.mp4` (+ `_thumb.jpg`). Giao xong: `node ~/.claude/skills/short-editing/engine/short.mjs clean video-agent/edits/short-<slug>` (nháp vào Thùng rác), bản xuất cũ cho vào Thùng rác, giữ file thô.
+- Tên: `TIKTOK_DieuKienTuyenSinhDHKookmin_021126_V1.mp4` (+ `_thumb.jpg`). `build.sh` tự đưa nháp vào Thùng rác (lệnh `all` chạy `clean`); bản xuất cũ cho vào Thùng rác, giữ file thô.
 - Không tự điền sheet / tải lên Drive Zila.
 
 ## 4. Sau mỗi video
